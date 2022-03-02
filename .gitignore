@@ -5,7 +5,7 @@ __pycache__/
 
 # C extensions
 *.so
-
+message-broker/AllCars.csv
 # Distribution / packaging
 .Python
 build/
