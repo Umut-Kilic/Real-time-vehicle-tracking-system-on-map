@@ -18,7 +18,7 @@ def is_avaiable_login(username,password):
         return True 
     return False   """
     id= get_customer_id(username, password)
-    print("login id "+str(id))
+    #print("login id "+str(id))
     if id != None:
         zaman=datetime.now()
         setLoginTime(id,zaman)
@@ -35,9 +35,9 @@ def is_avaiable_login(username,password):
 
 
 def user_logout():
-    id= get_username_id("username")
-    print("logout id "+str(id))
-    if "username" in session:
+    username=session['username']
+    id= get_username_id(username)
+    if 'username' in session:
         zaman=datetime.now()
         setLogoutTime(id, zaman)
         del session["username"]
