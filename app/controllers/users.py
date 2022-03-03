@@ -1,4 +1,4 @@
-from flask import session
+from flask import session, flash
 import sys
 sys.path.append("../")
 
@@ -13,12 +13,9 @@ def  add_user_request(username,email,password):
 
 
 def is_avaiable_login(username,password):
-    """if get_password(username) == password:
-        session['username']=username
-        return True 
-    return False   """
+   
     id= get_customer_id(username, password)
-    print("login id "+str(id))
+    #print("login id "+str(id))
     if id != None:
         zaman=datetime.now()
         setLoginTime(id,zaman)
@@ -28,24 +25,19 @@ def is_avaiable_login(username,password):
         return True 
     else:
         id= get_username_id(username)
-        updateFailedCount(id)
+        if updateFailedCount(id) >=3:
+            flash("Kardesim manyak m覺s覺n yaln覺s girme art覺k ban yicen.")
+    
         return False
 
 
 def user_logout():
+    username=session['username']
     id= get_username_id(username)
-    print("logout id "+str(id))
-    if "username" in session:
+    if 'username' in session:
         zaman=datetime.now()
         setLogoutTime(id, zaman)
         del session["username"]
         return True
     else:
         return False
-
-        
-            
-
-
-    
-

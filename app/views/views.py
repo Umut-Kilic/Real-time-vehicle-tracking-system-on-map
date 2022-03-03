@@ -1,12 +1,19 @@
-from flask import Flask, redirect, url_for,render_template,request
+from flask import Flask, redirect, url_for,render_template,request,flash
 app =Flask(__name__,template_folder='../templates',static_folder='../static')
 
 import sys
 sys.path.append("../")
-from controllers.users import add_user_request , get_password,is_avaiable_login
+from controllers.users import add_user_request , get_password,is_avaiable_login,user_logout
 
 app.secret_key = 'BAD_SECRET_KEY'
 
+
+
+
+@app.route('/logout')
+def logout_request():
+   user_logout()
+   return redirect(url_for('home')) 
 
 @app.route('/', methods=['POST', 'GET'])
 def home():
@@ -30,6 +37,7 @@ def kayit_ol():
       sifre = request.form.get('password')  
       add_user_request(isim,email,sifre)
       return redirect(url_for('home'))
+   flash("1221")
    return render_template("kayit.html")
 
 @app.route('/icerik')
@@ -39,4 +47,4 @@ def icerik():
 
 
 if __name__ == '__main__':
-   app.run()
+   app.run(debug=True)

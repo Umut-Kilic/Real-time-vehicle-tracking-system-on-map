@@ -10,10 +10,13 @@
 </head>
 <body>
 	
+
+	
 <div class="sidenav">
 	<div class="login-main-text">
 	   <h2>Uygulama<br> Giriş sayfası</h2>
 	   <p>Giriş veya kayıt olabilirsin.</p>
+	   
 	</div>
  </div>
  <div class="main">
@@ -46,6 +49,20 @@
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
 
+
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+  <ul class=flashes>
+  {% for message in messages %}
+<script>
+  alert('{{ message }}');
+</script>
+	
+  {% endfor %}
+  </ul>
+{% endif %}
+{% endwith %}
+
 </body>
 </html>
-
