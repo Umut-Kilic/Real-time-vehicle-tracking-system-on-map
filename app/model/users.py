@@ -92,6 +92,7 @@ def updateFailedCount(customer_id):
       cursor.execute(sql_command.format(customer_id))
       hatali_giris_sayisi=cursor.fetchone()
       print("Hatalı giriş sayısı : "+str(hatali_giris_sayisi[0]))
+      return hatali_giris_sayisi[0]
 
 
       conn.commit()

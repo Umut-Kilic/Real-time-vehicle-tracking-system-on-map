@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for,render_template,request
+from flask import Flask, redirect, url_for,render_template,request,flash
 app =Flask(__name__,template_folder='../templates',static_folder='../static')
 
 import sys
@@ -30,6 +30,7 @@ def kayit_ol():
       sifre = request.form.get('password')  
       add_user_request(isim,email,sifre)
       return redirect(url_for('home'))
+   flash("1221")
    return render_template("kayit.html")
 
 @app.route('/icerik')

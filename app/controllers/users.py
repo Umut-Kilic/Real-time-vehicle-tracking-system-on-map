@@ -1,4 +1,4 @@
-from flask import session
+from flask import session, flash
 import sys
 sys.path.append("../")
 
@@ -28,12 +28,14 @@ def is_avaiable_login(username,password):
         return True 
     else:
         id= get_username_id(username)
-        updateFailedCount(id)
+        if updateFailedCount(id) >=3:
+            flash("Kardesim manyak mısın yalnıs girme artık ban yicen.")
+    
         return False
 
 
 def user_logout():
-    id= get_username_id(username)
+    id= get_username_id("username")
     print("logout id "+str(id))
     if "username" in session:
         zaman=datetime.now()
