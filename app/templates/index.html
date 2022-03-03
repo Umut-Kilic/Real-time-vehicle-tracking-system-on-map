@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Hoş Geldiniz</title>
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<link href="/static/stil.css" rel="stylesheet">
+</head>
+<body>
+	
+<div class="sidenav">
+	<div class="login-main-text">
+	   <h2>Uygulama<br> Giriş sayfası</h2>
+	   <p>Giriş veya kayıt olabilirsin.</p>
+	</div>
+ </div>
+ <div class="main">
+	<div class="col-md-6 col-sm-12">
+		
+		<div style="height: 250px; width: 20%;">
+
+		</div>
+		<h1 class="text-center">Gelişmiş Araba Takip Sistemi</h1>
+	
+		   
+		  <form>
+			 <div class="form-group">
+				<label>Kullanıcı adı</label>
+				<input type="text" class="form-control" placeholder="User Name">
+			 </div>
+			 <div class="form-group">
+				<label>Şifre</label>
+				<input type="password" class="form-control" placeholder="Password">
+			 </div>
+			 <button id="ozel" type="submit" class="btn btn-black"><a href=" {{ url_for('kayit_ol') }}">Giriş</a></button>
+			 <button id="ozel2" type="submit" class="btn btn-secondary"><a href=" {{ url_for('kayit_ol') }}">Kayıt ol</a></button>
+		  </form>
+	  
+	</div>
+ </div>
+
+
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+
+</body>
+</html>
+
