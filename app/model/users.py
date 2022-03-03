@@ -30,16 +30,23 @@ def get_password(username):
 
    
 def get_username_id(username):
-   cursor.execute("""Select customerId From TBL_CUSTOMER Where username = ? """,(username))
+   get_id_command="""Select customerId From TBL_CUSTOMER Where username = '{}' """
+   cursor.execute(get_id_command.format(username))
    ilkveri=cursor.fetchone()
    print("ilk veri :"+str(ilkveri))
-   return ilkveri[0]  
+   if(ilkveri!=None):
+      return ilkveri[0]
+   else:
+      return None  
 
 def get_customer_id(username,password):
    cursor.execute("""Select customerId From TBL_CUSTOMER Where username = ? and password = ? """,(username,password))
    ilkveri=cursor.fetchone()
    print("ilk veri :"+str(ilkveri))
-   return ilkveri[0]
+   if(ilkveri!=None):
+      return ilkveri[0]
+   else:
+      return None
 
 def get_all_username(username):
    cursor.execute("""Select username From TBL_CUSTOMER""")
@@ -75,21 +82,30 @@ def resetFailedCount(customer_id):
    #conn.close()
 
 def updateFailedCount(customer_id):
-   update_command=""" Update TBL_CUSTOMER Set failed_count+=1 WHERE customerId={} """
-   data=(customer_id)
-   cursor.execute(update_command.format(data))
-   print("Güncelleme basarılı")
 
-   conn.commit()
-   #conn.close()
+   if(customer_id!=None):
+    
+      update_command=""" Update TBL_CUSTOMER Set failed_count=failed_count+1 WHERE customerId={} """
+      cursor.execute(update_command.format(customer_id))
+      print("Güncelleme basarılı")
+      sql_command="""Select failed_count From TBL_CUSTOMER WHERE customerId={} """
+      cursor.execute(sql_command.format(customer_id))
+      hatali_giris_sayisi=cursor.fetchone()
+      print("Hatalı giriş sayısı : "+str(hatali_giris_sayisi[0]))
+
+
+      conn.commit()
+      #conn.close()
+   
 
 def deleteAccount(customer_id):
-   delete_command=""" Delete From TBL_CUSTOMER WHERE customerId={} """
-   data=(customer_id)
-   cursor.execute(delete_command.format(data))
-   print("Silme basarılı")
-   conn.commit()
-   #conn.close()
+   if(customer_id!=None):
+      delete_command=""" Delete From TBL_CUSTOMER WHERE customerId={} """
+      data=(customer_id)
+      cursor.execute(delete_command.format(data))
+      print("Silme basarılı")
+      conn.commit()
+      #conn.close()
 
 
 

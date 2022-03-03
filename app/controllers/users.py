@@ -27,6 +27,7 @@ def is_avaiable_login(username,password):
         session['username']=username
         return True 
     else:
+        id= get_username_id(username)
         updateFailedCount(id)
         return False
 
