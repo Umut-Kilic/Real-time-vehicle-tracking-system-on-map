@@ -91,6 +91,9 @@ body {
 .signup-form .fa-paper-plane {
 	font-size: 18px;
 }
+a:hover .btn:hover{
+	color: white !important;
+}
 .signup-form .fa-check {
 	color: #fff;
 	left: 17px;
@@ -102,7 +105,7 @@ body {
 </head>
 <body>
 <div class="signup-form">
-    <form action="/examples/actions/confirmation.php" method="post">
+    <form action=" {{ url_for('kayit_ol')}} " method="post">
 		<h2>Kayıt Ol</h2>
 		<p>Lütfen aşağıdaki boşlukları doldurunuz</p>
 		<hr>
@@ -113,7 +116,7 @@ body {
 						<span class="fa fa-user"></span>
 					</span>                    
 				</div>
-				<input type="text" class="form-control" name="username" placeholder="Username" required="required">
+				<input type="text" class="form-control" name="username" placeholder="Kullanıcı Adı" required="required">
 			</div>
         </div>
         <div class="form-group">
@@ -123,7 +126,7 @@ body {
 						<i class="fa fa-paper-plane"></i>
 					</span>                    
 				</div>
-				<input type="email" class="form-control" name="email" placeholder="Email Address" required="required">
+				<input type="email" class="form-control" name="email" placeholder="Email Adresiniz" required="required">
 			</div>
         </div>
 		<div class="form-group">
@@ -133,7 +136,7 @@ body {
 						<i class="fa fa-lock"></i>
 					</span>                    
 				</div>
-				<input type="text" class="form-control" name="password" placeholder="Password" required="required">
+				<input type="text" class="form-control" name="password" placeholder="Şifre" required="required">
 			</div>
         </div>
 		<div class="form-group">
@@ -144,14 +147,14 @@ body {
 						<i class="fa fa-check"></i>
 					</span>                    
 				</div>
-				<input type="text" class="form-control" name="confirm_password" placeholder="Confirm Password" required="required">
+				<input type="text" class="form-control" name="confirm_password" placeholder="Şifre Terkar!" required="required">
 			</div>
         </div>
         <div class="form-group">
 			<label class="form-check-label"><input type="checkbox" required="required"> Kullanıcı <a href="#">Gizlilik sözleşmesini</a> &amp; <a href="#">kabul ediyorum</a></label>
 		</div>
 		<div class="form-group">
-            <button id="ozel3 type="submit" class="btn btn-primary btn-lg"><a href="{{ url_for('home')}}">Kayıt ol</a></button>
+            <button  type="submit" class="btn btn-primary btn-lg">Kayıt ol</button>
         </div>
     </form>
 	<div class="text-center">Hesabınız var mı? <a href="{{ url_for('home')}}">Buraya gel</a></div>
