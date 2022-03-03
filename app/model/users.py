@@ -12,14 +12,26 @@ sys.path.append("../")
 
 
 def get_password(username):
-   pass
+   cursor.execute("""Select password From TBL_CUSTOMER Where username = ?""",(username))
+   ilkveri=cursor.fetchone()
+   print("ilk veri :"+ilkveri)
+   return ilkveri
+
    
+def get_username_id(username,password):
+   cursor.execute("""Select customerId From TBL_CUSTOMER Where username = ? and password = ? """,(username,password))
+   ilkveri=cursor.fetchone()
+   print("ilk veri :"+str(ilkveri))
+   return ilkveri
 
 def get_all_username(username):
-   pass
+   cursor.execute("""Select username From TBL_CUSTOMER""")
+   list_all=cursor.fetchall()
+   for student in list_all:
+         print("Tum db  veri :"+student)
+
+   return list_all
    
-
-
 def searchUsername(username):
    search_command="""Select * From Where username = '{}'"""
    cursor.execute(search_command.format(username))
