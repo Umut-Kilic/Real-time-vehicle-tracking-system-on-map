@@ -81,6 +81,22 @@ def resetFailedCount(customer_id):
    conn.commit()
    #conn.close()
 
+def is_online(id,boolean):
+   if(id!=None):
+      if(boolean):
+         print("id "+str(id))
+         update_command=""" Update TBL_CUSTOMER Set is_online="True" WHERE customerId={} """
+         data=(id)
+         cursor.execute(update_command.format(data))
+         print("Login oldu")
+      else:
+         print("id "+str(id))
+         update_command=""" Update TBL_CUSTOMER Set is_online="False" WHERE customerId={} """
+         data=(id)
+         cursor.execute(update_command.format(data))
+         print("Logout anneeeeeeeeeeeee")
+      
+
 def updateFailedCount(customer_id):
 
    if(customer_id!=None):
