@@ -11,6 +11,8 @@ cursor=conn.cursor()
 print("Cursor oluşturuldu")
 
 
+
+
 def connect():
    conn=sqlite3.connect('musteri_hesap_bilgileri.db', check_same_thread=False)
    print("Bağlantı gerçekleşti")
@@ -145,9 +147,8 @@ def setLogoutTime(customer_id,time):
    conn.commit()
    #conn.close()
 
-"""def getOnlineUsersCar():
-   cursor.execute('''Select CarId From TBL_CUSTOMER,TBL_CUSTOMER_CAR Where TBL_CUSTOMER.is_online='True' ''')
+def getOnlineUsersCar(cursor):
+   cursor.execute("""Select CarId From TBL_CUSTOMER,TBL_CUSTOMER_CAR Where TBL_CUSTOMER.is_online='True' """)
    list_all=cursor.fetchall()
    conn.commit()
-   print(list_all)
-   return list_all"""
+   return list_all
