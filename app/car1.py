@@ -10,12 +10,22 @@ sayac=0
 
 import sqlite3
 
-conn=sqlite3.connect('views/musteri_hesap_bilgileri.db', check_same_thread=False)
+
+conn=sqlite3.connect('musteri_hesap_bilgileri.db', check_same_thread=False)
 print("Bağlantı gerçekleşti")
+
 cursor=conn.cursor()
-print("Cursor oluşturuldu") 
+print("Cursor oluşturuldu")
+#from model.users import getOnlineUsersCar
 
+def getOnlineUsersCar():
+   cursor.execute("""Select CarId From TBL_CUSTOMER,TBL_CUSTOMER_CAR Where TBL_CUSTOMER.is_online='True'""")
+   list_all=cursor.fetchall()
+   conn.commit()
+   print(list_all)
+   return list_all
 
+liste=getOnlineUsersCar()
 
 
 

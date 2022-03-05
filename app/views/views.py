@@ -8,31 +8,6 @@ from controllers.users import add_user_request , get_password,is_avaiable_login,
 app.secret_key = 'BAD_SECRET_KEY'
 
 
-class School:
-    def __init__(self, key, name, lat, lng):
-        self.key  = key
-        self.name = name
-        self.lat  = lat
-        self.lng  = lng
-
-schools = (
-    School('hv',      'Happy Valley Elementary',   37.9045286, -122.1445772),
-    School('stanley', 'Stanley Middle',            37.8884474, -122.1155922),
-    School('wci',     'Walnut Creek Intermediate', 37.9093673, -122.0580063)
-)
-schools_by_key = {school.key: school for school in schools}
-
-
-
-@app.route("/<school_code>")
-def show_school(school_code):
-    school = schools_by_key.get(school_code)
-    if school:
-        return render_template('map.html', school=school)
-    else:
-         return render_template('map.html', school=school)
-
-
 
 @app.route('/logout')
 def logout_request():

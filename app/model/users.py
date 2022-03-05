@@ -1,8 +1,5 @@
 import sqlite3
 
-
-
-
 import sys
 sys.path.append("../")
 
@@ -133,7 +130,6 @@ def print_all():
    for student in list_all:
       print(student)
 
-  
    conn.commit()
    #conn.close()
 
@@ -148,3 +144,10 @@ def setLogoutTime(customer_id,time):
    cursor.execute("""Insert into TBL_CUSTOMER_ACTIVITY (customer_id,kind_of_activity,time) values (?,'Logout',?) """,(customer_id,time))
    conn.commit()
    #conn.close()
+
+"""def getOnlineUsersCar():
+   cursor.execute('''Select CarId From TBL_CUSTOMER,TBL_CUSTOMER_CAR Where TBL_CUSTOMER.is_online='True' ''')
+   list_all=cursor.fetchall()
+   conn.commit()
+   print(list_all)
+   return list_all"""
