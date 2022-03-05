@@ -5,8 +5,11 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Hoş Geldiniz</title>
-	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	<link href="/static/stil.css" rel="stylesheet">
+	<style>
+      @import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@1,200&display=swap');
+    </style>
 </head>
 <body>
 	
@@ -31,11 +34,11 @@
 		  <form action="{{ url_for('home') }}" method="post">
 			 <div class="form-group">
 				<label>Kullanıcı adı</label>
-				<input type="text" class="form-control" placeholder="User Name" name="username">
+				<input type="text" class="form-control" placeholder="Kullanıcı Adınız" name="username">
 			 </div>
 			 <div class="form-group">
 				<label>Şifre</label>
-				<input type="password" class="form-control" placeholder="Password" name="password">
+				<input type="password" class="form-control" placeholder="Şifre" name="password">
 			 </div>
 			 <button id="ozel" type="submit" class="btn btn-black">Giriş</button>
 			 <button id="ozel2" type="submit" class="btn btn-secondary"><a href=" {{ url_for('kayit_ol') }}">Kayıt ol</a></button>
