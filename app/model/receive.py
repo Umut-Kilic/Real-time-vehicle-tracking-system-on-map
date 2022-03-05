@@ -4,6 +4,14 @@ import pika
 import sqlite3
 
 
+import firebase_admin 
+from firebase_admin import credentials ,firestore
+
+kimlik= credentials.Certificate('./key.json')
+app=firebase_admin.initialize_app(kimlik)
+db=firestore.client()
+
+
 connection = pika.BlockingConnection(pika.ConnectionParameters(host='127.0.0.1'))
 channel = connection.channel()
 
@@ -23,10 +31,13 @@ def callback(ch, method, properties, body):
     x=listem[3]
     y=listem[6]
     date=listem[7][5:]+" "+listem[8]
-    print("listem id :"+idd)
-    print("listem x :"+x)
-    print("listem y :"+y)
-    print("listem date :"+date)
+    document=db.collection("data").document(idd)
+
+    document.update({
+        
+   date: {"x":x,
+    "y":y
+    }})
 
 channel.basic_consume(
     queue=queue_name, on_message_callback=callback, auto_ack=True)
