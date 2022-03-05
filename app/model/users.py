@@ -148,7 +148,7 @@ def setLogoutTime(customer_id,time):
    #conn.close()
 
 def getOnlineUsersCar(cursor):
-   cursor.execute("""Select CarId From TBL_CUSTOMER,TBL_CUSTOMER_CAR Where TBL_CUSTOMER.is_online='True' """)
+   cursor.execute(""" Select DISTINCT(CarId) From TBL_CUSTOMER,TBL_CUSTOMER_CAR Where TBL_CUSTOMER.is_online='True' """)
    list_all=cursor.fetchall()
    conn.commit()
    return list_all
