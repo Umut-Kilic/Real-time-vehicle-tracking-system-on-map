@@ -14,7 +14,7 @@ cursor=conn.cursor()
 print("Cursor oluşturuldu")
 
 liste=getOnlineUsersCar(cursor)
-print(liste)
+
 
 #allCars.csv
 #carid - > 1
@@ -22,9 +22,11 @@ print(liste)
 col_Names=["date", "x", "y", "carid"]
 data= pd.read_csv("allCars.csv",names=col_Names)
 
-car1 = data[ (data['carid'] ==10 )]
-x,y = car1.x , car1.y
-index=500
+for i in range(0,len(liste)):
+    print(liste[i][0])
+    car1 = data[ (data['carid'] ==liste[i][0])]
+    x,y = car1.x , car1.y
+    index=500
 
 while True:
     
