@@ -48,7 +48,7 @@ def home():
       print("sifre : "+sifre)
       if(is_avaiable_login(isim, sifre)):
 
-         return redirect(url_for('icerik')) 
+         return render_template('icerik.html',isim=isim.upper()) 
        
    return render_template("index.html")
 
@@ -64,9 +64,16 @@ def kayit_ol():
    flash("1221")
    return render_template("kayit.html")
 
-@app.route('/icerik')
+
+@app.route('/icerik', methods=['POST', 'GET'])
 def icerik():
-   return render_template("icerik.html")
+   if request.method == 'GET':
+      print("isim Geldi mi : "+str(username))
+      return render_template("icerik.html",isim=username)
+   else:
+      return render_template("icerik.html")
+     
+  
 
 
 
