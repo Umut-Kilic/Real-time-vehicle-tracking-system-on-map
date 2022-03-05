@@ -1,13 +1,12 @@
 #!/usr/bin/env python
 import pika
+
 import sqlite3
-import sys
-sys.path.append("../")
-conn=sqlite3.connect('musteri_hesap_bilgileri.db', check_same_thread=False)
-print("Bağlantı gerçeleşti")
 
+conn=sqlite3.connect('views/musteri_hesap_bilgileri.db', check_same_thread=False)
+print("Bağlantı gerçekleşti")
 cursor=conn.cursor()
-
+print("Cursor oluşturuldu")
 
 
 
