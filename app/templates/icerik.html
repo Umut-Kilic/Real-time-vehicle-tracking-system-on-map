@@ -38,18 +38,32 @@
       const myLatLng = { lat: -25.363, lng: 131.044 };
 
       const map = new google.maps.Map(document.getElementById('map'), {
-            center: { lat: -34.397, lng: 150.644 },
-            zoom: 16
+            center: { lat: 59.42190595212989, lng: 17.822133881640568 },
+            zoom: 10
           });
+
+
           {% for item in car.features %}
 
-          new google.maps.Marker({
+
+    
+         var marker =new google.maps.Marker({
             position: {lat :{{ item.x }} ,lng : {{ item.y }} } ,
+            animation: google.maps.Animation.DROP,
             map,
-            center: { lat: -33, lng: 151 },
             label: " {{car.id}}",
             description:"1221"
           });
+          marker.description = new google.maps.InfoWindow({
+            content:" {{item.date}}"
+          });
+          google.maps.event.addListener(marker, 'click', function(){
+            this.description.setPosition(this.getPosition());
+            this.description.open(map); //map to display on
+          });
+
+        
+          
           {% endfor %}
 
     }
