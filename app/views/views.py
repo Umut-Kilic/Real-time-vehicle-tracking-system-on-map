@@ -3,7 +3,7 @@ app =Flask(__name__,template_folder='../templates',static_folder='../static')
 
 import sys
 sys.path.append("../")
-from controllers.users import add_user_request , get_password,is_avaiable_login,user_logout , get_30_min_request
+from controllers.users import add_user_request , get_password,is_avaiable_login,user_logout , get_30_min_request , getAllCars_30_min_request
 
 app.secret_key = 'BAD_SECRET_KEY'
 
@@ -20,10 +20,11 @@ def home():
       isim = request.form.get('username') 
       sifre = request.form.get('password')
 
-      car=get_30_min_request(1)
+      
       if(is_avaiable_login(isim, sifre)):
+         cars=getAllCars_30_min_request(5)
 
-         return render_template('icerik.html',isim=isim.upper(),car=car) 
+         return render_template('icerik.html',isim=isim.upper(),cars=cars) 
        
    return render_template("index.html")
 
@@ -38,18 +39,6 @@ def kayit_ol():
       return redirect(url_for('home'))
    flash("1221")
    return render_template("kayit.html")
-
-
-@app.route('/icerik', methods=['POST', 'GET'])
-def icerik():
-   if request.method == 'GET':
-      get_30_min_request(1)
-      return render_template("icerik.html",isim=username )
-   else:
-      return render_template("icerik.html")
-     
-  
-
 
 
 if __name__ == '__main__':

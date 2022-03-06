@@ -12,7 +12,7 @@ db=firestore.client()
 
 
 
-conn=sqlite3.connect('musteri_hesap_bilgileri.db', check_same_thread=False)
+conn=sqlite3.connect('../views/musteri_hesap_bilgileri.db', check_same_thread=False)
 
 
 cursor=conn.cursor()
@@ -154,3 +154,22 @@ def getOnlineUsersCar(cursor):
    list_all=cursor.fetchall()
    conn.commit()
    return list_all
+
+
+def getCarsIdFromUserId(id):
+   
+   search_command=""" Select DISTINCT(CarId) From TBL_CUSTOMER_CAR Where customerId = '{}'"""
+ 
+
+   cursor.execute(search_command.format(id))
+
+   carids=cursor.fetchall()
+  
+   conn.commit()
+   car_id_list=[]
+   for carid in carids:
+      car_id_list.append(carid[0])
+
+   print(car_id_list)
+   return car_id_list
+   

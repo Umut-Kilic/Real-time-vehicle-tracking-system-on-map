@@ -7,7 +7,18 @@ from model.users import *
 from datetime import datetime
 
 
+def getAllCars_30_min_request(userid):
+    car_id_list=getCarsIdFromUserId(userid)
+    cars=[]
+    for car_id in car_id_list:
+        car=get_30_min_request(car_id)
+        cars.append(car)
+    return cars
+        
+
+
 def get_30_min_request(id):
+    
     x,y,date=get_car_for_last_30_min(id)
     posts=[]
     for i in range(len(x)):
@@ -22,7 +33,6 @@ def get_30_min_request(id):
         "features":posts
     
     }
-    pprint(car)
     return car
 
 def  add_user_request(username,email,password):
