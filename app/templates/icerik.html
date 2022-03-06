@@ -101,14 +101,10 @@
             <tbody>
 
               {% for car in cars %}
-
-             
-
               <tr>
                 <td >{{car.id}}</td>
-                <td >{{car.features[0]}}</td>
+                <td >x pos :{{car.features[0].x}}  +y pos : {{car.features[0].y}}  </td>
               </tr>
-
               {% endfor %}
      
             </tbody>

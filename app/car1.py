@@ -5,10 +5,21 @@ import time
 import csv
 import pandas as pd
 import sqlite3
-from model.users import getOnlineUsersCar
 import pprint
 col_Names=["date", "x", "y", "carid"]
 data= pd.read_csv("allCars.csv",names=col_Names)
+
+conn=sqlite3.connect('musteri_hesap_bilgileri.db', check_same_thread=False)
+cursor=conn.cursor()
+
+
+
+
+def getOnlineUsersCar(cursor):
+   cursor.execute(""" Select DISTINCT(CarId) From TBL_CUSTOMER,TBL_CUSTOMER_CAR Where TBL_CUSTOMER.is_online='True' """)
+   list_all=cursor.fetchall()
+   conn.commit()
+   return list_all
 
 def otuzyolla(index,car,id):
     for i in range(30):
@@ -28,29 +39,33 @@ def otuzyolla(index,car,id):
         print(" [x] Sent %r" % message)
         connection.close()
      
-        time.sleep(0.02)
+      
         
 
 
 
-sayac=0
-conn=sqlite3.connect('views/musteri_hesap_bilgileri.db', check_same_thread=False)
-cursor=conn.cursor()
 
-liste=getOnlineUsersCar(cursor)
-
-
-#allCars.csv
-#carid - > 1
-
-
-
+import datetime
+currentMinute = 0
 
 
 otuzluk=[]
 
+# 1 dakka geçtiğinde otuzluk listesi boşaltılmalı !!
+current=-1
+import time
 
 while True:
+
+    if datetime.datetime.now().minute != current:
+        current = datetime.datetime.now().minute
+        otuzluk=[]
+    
+
+    
+
+    liste=getOnlineUsersCar(cursor)
+
     
     for carid in liste:
         car = data[ (data['carid'] ==carid[0])]
