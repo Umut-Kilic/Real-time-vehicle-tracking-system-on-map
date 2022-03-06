@@ -31,6 +31,7 @@ def callback(ch, method, properties, body):
     x=listem[3]
     y=listem[6]
     date=listem[7][5:]+" "+listem[8]
+    print(str(x))
     document=db.collection("data").document(idd)
 
     document.update({

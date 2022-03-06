@@ -1,30 +1,44 @@
-import sqlite3
-
 import sys
 sys.path.append("../")
 
+import sqlite3
+import firebase_admin 
+from firebase_admin import credentials ,firestore
+from pprint import pprint
+kimlik= credentials.Certificate('../key.json')
+app=firebase_admin.initialize_app(kimlik)
+db=firestore.client()
+
+
+
 
 conn=sqlite3.connect('musteri_hesap_bilgileri.db', check_same_thread=False)
-print("Bağlantı gerçekleşti")
+
 
 cursor=conn.cursor()
-print("Cursor oluşturuldu")
 
 
 
+def get_car_for_last_30_min(id):
+   x_list=[]
+   y_list=[]
+   date_list=[]
+   doc_ref = db.collection(u'data').document(str(id))
+   
+   doc = doc_ref.get()._data
 
-def connect():
-   conn=sqlite3.connect('musteri_hesap_bilgileri.db', check_same_thread=False)
-   print("Bağlantı gerçekleşti")
-
-   cursor=conn.cursor()
-   print("Cursor oluşturuldu")
-
+   for value, date in doc.items():
+     x_list.append(doc[value]['x'])
+     y_list.append(doc[value]['y'])
+     date_list.append(value)
+   return x_list , y_list , date_list 
+   
+get_car_for_last_30_min(1)
 
 def get_password(username):
    cursor.execute("""Select password From TBL_CUSTOMER Where username = ?""",(username))
    ilkveri=cursor.fetchone()
-   print("ilk veri :"+str(ilkveri))
+ 
    return ilkveri[0]
 
    
@@ -32,7 +46,6 @@ def get_username_id(username):
    get_id_command="""Select customerId From TBL_CUSTOMER Where username = '{}' """
    cursor.execute(get_id_command.format(username))
    ilkveri=cursor.fetchone()
-   print("ilk veri :"+str(ilkveri))
    if(ilkveri!=None):
       return ilkveri[0]
    else:
@@ -41,7 +54,6 @@ def get_username_id(username):
 def get_customer_id(username,password):
    cursor.execute("""Select customerId From TBL_CUSTOMER Where username = ? and password = ? """,(username,password))
    ilkveri=cursor.fetchone()
-   print("ilk veri :"+str(ilkveri))
    if(ilkveri!=None):
       return ilkveri[0]
    else:
@@ -50,8 +62,7 @@ def get_customer_id(username,password):
 def get_all_username(username):
    cursor.execute("""Select username From TBL_CUSTOMER""")
    list_all=cursor.fetchall()
-   for student in list_all:
-         print("Tum db  veri :"+student)
+
 
    return list_all
    
@@ -75,7 +86,6 @@ def resetFailedCount(customer_id):
    update_command=""" Update TBL_CUSTOMER Set failed_count=0 WHERE customerId={} """
    data=(customer_id)
    cursor.execute(update_command.format(data))
-   print("Sıfırlama basarılı")
 
    conn.commit()
    #conn.close()
@@ -83,17 +93,13 @@ def resetFailedCount(customer_id):
 def is_online(id,boolean):
    if(id!=None):
       if(boolean):
-         print("id "+str(id))
          update_command=""" Update TBL_CUSTOMER Set is_online="True" WHERE customerId={} """
          data=(id)
          cursor.execute(update_command.format(data))
-         print("Login oldu")
       else:
-         print("id "+str(id))
          update_command=""" Update TBL_CUSTOMER Set is_online="False" WHERE customerId={} """
          data=(id)
          cursor.execute(update_command.format(data))
-         print("Logout anneeeeeeeeeeeee")
       
 
 def updateFailedCount(customer_id):
@@ -102,11 +108,9 @@ def updateFailedCount(customer_id):
     
       update_command=""" Update TBL_CUSTOMER Set failed_count=failed_count+1 WHERE customerId={} """
       cursor.execute(update_command.format(customer_id))
-      print("Güncelleme basarılı")
       sql_command="""Select failed_count From TBL_CUSTOMER WHERE customerId={} """
       cursor.execute(sql_command.format(customer_id))
       hatali_giris_sayisi=cursor.fetchone()
-      print("Hatalı giriş sayısı : "+str(hatali_giris_sayisi[0]))
       return hatali_giris_sayisi[0]
 
 
@@ -119,7 +123,6 @@ def deleteAccount(customer_id):
       delete_command=""" Delete From TBL_CUSTOMER WHERE customerId={} """
       data=(customer_id)
       cursor.execute(delete_command.format(data))
-      print("Silme basarılı")
       conn.commit()
       #conn.close()
 
@@ -129,8 +132,7 @@ def print_all():
    list_command=""" Select * From TBL_CUSTOMER """
    cursor.execute(list_command)
    list_all=cursor.fetchall()
-   for student in list_all:
-      print(student)
+  
 
    conn.commit()
    #conn.close()

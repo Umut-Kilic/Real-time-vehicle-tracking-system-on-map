@@ -3,9 +3,27 @@ import sys
 sys.path.append("../")
 
 
-from model.users import add_user , get_all_username,get_password,get_username_id,resetFailedCount,updateFailedCount,setLoginTime,setLogoutTime,get_customer_id,get_username_id,is_online
- 
+from model.users import *
 from datetime import datetime
+
+
+def get_30_min_request(id):
+    x,y,date=get_car_for_last_30_min(id)
+    posts=[]
+    for i in range(len(x)):
+        post={
+            'x':x[i],
+            'y':y[i],
+            'date':date[i]
+        }
+        posts.append(post)
+    car={
+        "id":id,
+        "features":posts
+    
+    }
+    pprint(car)
+    return car
 
 def  add_user_request(username,email,password):
     add_user(username,email,password)

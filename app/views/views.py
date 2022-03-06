@@ -3,7 +3,7 @@ app =Flask(__name__,template_folder='../templates',static_folder='../static')
 
 import sys
 sys.path.append("../")
-from controllers.users import add_user_request , get_password,is_avaiable_login,user_logout
+from controllers.users import add_user_request , get_password,is_avaiable_login,user_logout , get_30_min_request
 
 app.secret_key = 'BAD_SECRET_KEY'
 
@@ -19,11 +19,11 @@ def home():
    if request.method == 'POST':
       isim = request.form.get('username') 
       sifre = request.form.get('password')
-      print("isim : "+isim)
-      print("sifre : "+sifre)
+
+      car=get_30_min_request(1)
       if(is_avaiable_login(isim, sifre)):
 
-         return render_template('icerik.html',isim=isim.upper()) 
+         return render_template('icerik.html',isim=isim.upper(),car=car) 
        
    return render_template("index.html")
 
@@ -43,8 +43,8 @@ def kayit_ol():
 @app.route('/icerik', methods=['POST', 'GET'])
 def icerik():
    if request.method == 'GET':
-      print("isim Geldi mi : "+str(username))
-      return render_template("icerik.html",isim=username)
+      get_30_min_request(1)
+      return render_template("icerik.html",isim=username )
    else:
       return render_template("icerik.html")
      
