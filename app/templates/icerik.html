@@ -102,7 +102,7 @@
 
               {% for car in cars %}
               <tr>
-                <td >{{car.id}}</td>
+                <td > <a href={{ url_for('one_car',car_id=car.id) }} }}>{{car.id}}</a></td>
                 <td >x pos :{{car.features[0].x}}  +y pos : {{car.features[0].y}}  </td>
               </tr>
               {% endfor %}

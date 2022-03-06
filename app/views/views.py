@@ -9,6 +9,12 @@ app.secret_key = 'BAD_SECRET_KEY'
 
 
 
+@app.route('/car/<int:car_id>')
+def one_car(car_id):
+   
+   return str(car_id)
+
+
 @app.route('/logout')
 def logout_request():
    user_logout()
