@@ -1,182 +1,230 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta charset="UTF-8">
-    <title>İçerik</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNSNy-MC8K7chF-bcgYrPuFZ29mdsNtI0&callback=initMap"
+  <meta charset="UTF-8">
+  <title>İçerik</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNSNy-MC8K7chF-bcgYrPuFZ29mdsNtI0&callback=initMap"
     type="text/javascript"></script>
-    
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@1,200&display=swap');
-    </style>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@1,200&display=swap');
+  </style>
 
 
-    <style>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0px;
+    }
 
-      *{
-        box-sizing: border-box;
-        margin: 0px;
-      }
+    #link {
+      text-decoration: none;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+    }
 
-      #link{
-        text-decoration: none;
-        color: white;
-        font-size: 18px;
-        font-weight: bold;
-      }
-      #link:active{
-        text-decoration: underline;
-        color: blue;
-        font-weight: bolder;
-        font-size: 20px;
-      }
-      #link:visited{
-        color: white;
-      }
-      #link:hover{
-        text-decoration: dotted;
-        color: red;
-        font-weight: bolder;
-        font-size: 20px;
-      }
-      a{
-        color: white;
-        text-decoration: none;
-      }
-      a:active,a:visited{
-        color:white;
-      }
-      a:hover{
-        font-size: larger;
-        color: red;
-        font-weight: bolder;
-      }
+    #link:active {
+      text-decoration: underline;
+      color: blue;
+      font-weight: bolder;
+      font-size: 20px;
+    }
 
+    #link:visited {
+      color: white;
+    }
 
-    </style>
+    #link:hover {
+      text-decoration: dotted;
+      color: red;
+      font-weight: bolder;
+      font-size: 20px;
+    }
+
+    a {
+      color: white;
+      text-decoration: none;
+    }
+
+    a:active,
+    a:visited {
+      color: white;
+    }
+
+    a:hover {
+      font-size: larger;
+      color: red;
+      font-weight: bolder;
+    }
+  </style>
 
 
 
-    <script type="text/javascript">
+  <script type="text/javascript">
 
     function initMap() {
-      var renksayaci=0;
-      var markers=[];
-      var flightPlanCoordinates=[];
+      var renksayaci = 0;
+      var markers = [];
+      var flightPlanCoordinates = [];
       const myLatLng = { lat: -25.363, lng: 131.044 };
-      var flightPlanCoordinates=[]
-      var renkler=['#e61919',"#478ccc","#ff7f00","#003153","#b87333","#01796f","#682860","#fba0e3"]
+      var flightPlanCoordinates = []
+      var renkler = ['#e61919', "#478ccc", "#ff7f00", "#003153", "#b87333", "#01796f", "#682860", "#fba0e3"]
       var map = new google.maps.Map(document.getElementById('map'), {
-            center: { lat: 59.42190595212989, lng: 17.822133881640568 },
-            zoom: 10
+        center: { lat: 59.42190595212989, lng: 17.822133881640568 },
+        zoom: 10
+      });
+
+      {% for car in cars %}
+      var randomColor = getRandomColor();
+      console.log(randomColor)
+
+      {% for item in car.features %}
+
+
+      var marker = new google.maps.Marker({
+        position: { lat: {{ item.x }} , lng: { { item.y } } } ,
+    animation: google.maps.Animation.DROP,
+      map,
+      label: " {{car.id}}",
+        description: "Bilgi"
           });
+    marker.description = new google.maps.InfoWindow({
+      content: " {{item.date}}"
+    });
+    google.maps.event.addListener(marker, 'click', function () {
+      this.description.setPosition(this.getPosition());
+      this.description.open(map); //map to display on
+    });
+    markers.push(marker);
 
-          {% for car in cars %}
-          var randomColor = getRandomColor();
-          console.log(randomColor)
-
-          {% for item in car.features %}
+    //alert(markers)
 
 
-         var marker =new google.maps.Marker({
-            position: {lat :{{ item.x }} ,lng : {{ item.y }} } ,
-            animation: google.maps.Animation.DROP,
-            map,
-            label: " {{car.id}}",
-            description:"Bilgi"
-          });
-          marker.description = new google.maps.InfoWindow({
-            content:" {{item.date}}"
-          });
-          google.maps.event.addListener(marker, 'click', function(){
-            this.description.setPosition(this.getPosition());
-            this.description.open(map); //map to display on
-          });
-          markers.push(marker);
+    flightPlanCoordinates.push(
+      { 'lat': {{ item.x }} , 'lng': {{ item.y }}}
+    )
 
-          //alert(markers)
-         
+    {% endfor %}
 
-          flightPlanCoordinates.push(
-           { 'lat':{{item.x}} , 'lng':{{item.y}}}
-          )
+    function getRandomColor() {
+      color = '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
+      return color
+    }
+    console.log(getRandomColor());
 
-          {% endfor %}
-            
-        function getRandomColor(){
-        color=  '#' + Math.floor(Math.random()*16777215 ).toString(16).padStart(6, '0');
-          return color
-      }
-        console.log(getRandomColor());
+    flightPath = new google.maps.Polyline({
+      path: flightPlanCoordinates,
+      geodesic: true,
+      strokeColor: renkler[renksayaci],
+      strokeOpacity: 1.0,
+      strokeWeight: 2,
+    });
+    renksayaci++;
 
-         flightPath = new google.maps.Polyline({
-          path: flightPlanCoordinates,
-          geodesic: true,
-          strokeColor: renkler[renksayaci],
-          strokeOpacity: 1.0,
-          strokeWeight: 2,
-        });
-        renksayaci++;
-        
 
-        flightPath.setMap(map);
-        flightPath=[]
-        markers=[]
-        flightPlanCoordinates=[]
-        {% endfor %}
+    flightPath.setMap(map);
+    flightPath = []
+    markers = []
+    flightPlanCoordinates = []
+    {% endfor %}
 
   
       }
 
-    </script>
+  </script>
 
 </head>
+
 <body>
-  
+
   <div class="container-fluid">
     <div class="row">
-        <div class="col-md-8 bg-info" style="height: 700px; padding: 0px; ">
-            <h1 class="text-center mb-2" style=" margin-top: 0.3%; font-family: 'Kanit', sans-serif;">HOŞ GELDİN : {{isim}}</h1>
-            <div id="map" class="w-100" style="height:95%;"></div>
-        </div>
-        <div class="col-md-3 bg-success p-0" style="height: 500px;">
-          <table style="display: flexbox;" class="table table-dark table-hover table-striped table-responsive w-100 p-0 m-0">
-            <thead>
-              <tr>
-                <th style="text-align: center; justify-content: center;">Araç Id</th>
-                <th style="text-align: center; justify-content: center;">Araç Konum X</th>
-                <th style="text-align: center; justify-content: center;">Araç Konum Y</th>
-              </tr>
-               
-            </thead>
-            <tbody>
+      <div class="col-md-8 bg-info" style="height: 700px; padding: 0px; ">
+        <h1 class="text-center mb-2" style=" margin-top: 0.3%; font-family: 'Kanit', sans-serif;">HOŞ GELDİN : {{isim}}
+        </h1>
+        <div id="map" class="w-100" style="height:650px;"></div>
+      </div>
+      <div class="col-md-3 bg-success p-0" style="height: 500px;">
+        <table style="display: flexbox;"
+          class="table table-dark table-hover table-striped table-responsive w-100 p-0 m-0">
+          <thead>
+            <tr>
+              <th style="text-align: center; justify-content: center;">Araç Id</th>
+              <th style="text-align: center; justify-content: center;">Araç Konum X</th>
+              <th style="text-align: center; justify-content: center;">Araç Konum Y</th>
+              <th style="text-align: center; justify-content: center;">Detaylı Tablo</th>
+            </tr>
 
-              {% for car in cars %}
-              <tr>
-                <td style="text-align: center; justify-content: center;"> <a href={{ url_for('saatsecimi',car_id=car.id , saat="1") }} }}>{{car.id}}</a></td>
-                <td style="text-align: center; justify-content: center;">{{'%0.8f'|format(car.features[0].x|float)}} </td>
-                <td style="text-align: center; justify-content: center;">{{'%0.8f'|format(car.features[0].y|float)}}</td>
-              </tr>
-              {% endfor %}
-     
-            </tbody>
-           
-          </table>
+          </thead>
+          <tbody>
 
-        </div>
-        <div class="col-md-1 bg-primary" style="height: 500px;">
-          <a id="link" style="display: flex; justify-content: center; align-items: center;" href="{{ url_for('logout_request') }}"> Çıkış Yap</a>
-        </div>
-       
+            {% for car in cars %}
+            <tr>
+              <td style="text-align: center; justify-content: center;"> <a href={{ url_for('saatsecimi',car_id=car.id ,
+                  saat="1" ) }} }}>{{car.id}}</a></td>
+              <td style="text-align: center; justify-content: center;">{{'%0.8f'|format(car.features[0].x|float)}} </td>
+              <td style="text-align: center; justify-content: center;">{{'%0.8f'|format(car.features[0].y|float)}}</td>
+              <td style="text-align: center; justify-content: center;"><a href="#row2"><img src=""
+                    alt="Goksel istiyor yapacak bir şey yok"></a></td>
+            </tr>
+            {% endfor %}
+
+          </tbody>
+
+        </table>
+
+      </div>
+      <div class="col-md-1 bg-primary" style="height: 500px;">
+        <a id="link" style="display: flex; justify-content: center; align-items: center;"
+          href="{{ url_for('logout_request') }}"> Çıkış Yap</a>
+      </div>
+
+
+
     </div>
-  
-</div>
+    <div class="row bg-success" style="height: 500px;" id="row2">
+      <div class="col-md-12">
 
-<script src="/js/wow.min.js"></script>
-<script>
-    new WOW().init();
-</script>
+        <table style="display: flexbox;"
+          class="table table-dark table-hover table-striped table-responsive w-100 p-0 m-0">
+          <thead>
+            <tr>
+              <th style="text-align: center; justify-content: center;">Araç Id</th>
+              <th style="text-align: center; justify-content: center;">Araç Konum X</th>
+              <th style="text-align: center; justify-content: center;">Araç Konum Y</th>
+              <th style="text-align: center; justify-content: center;">Saat</th>
+            </tr>
+
+          </thead>
+          <tbody>
+
+            {% for car in cars %}
+
+            {% for item in car.features %}
+            <tr>
+              <td style="text-align: center; justify-content: center;"> <a href={{ url_for('saatsecimi',car_id=car.id ,
+                  saat="1" ) }} }}>{{car.id}}</a></td>
+              <td style="text-align: center; justify-content: center;">{{'%0.8f'|format(item.x|float)}} </td>
+              <td style="text-align: center; justify-content: center;">{{'%0.8f'|format(item.y|float)}}</td>
+              <td style="text-align: center; justify-content: center;">{{'%0.2f'|format(item.date|float)}}</td>
+            </tr>
+            {% endfor %}
+            {% endfor %}
+          </tbody>
+
+        </table>
+
+      </div>
+    </div>
+
+  </div>
+
 </body>
+
 </html>

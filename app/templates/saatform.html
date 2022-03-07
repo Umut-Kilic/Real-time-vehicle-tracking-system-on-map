@@ -96,20 +96,11 @@
                         <input   type="submit">
                     </form>
         
-                    <script>
-                        function testclick(){
-        
-                           value= $( "#form" ).val();
-                           $( "#saat" ).val(value)
-                           carid=$( "#carid" ).val( {{car_id}}  )
-                           window.location.replace("http://127.0.0.1:5000/tekaraba/"+{{car_id}}+"/"+value);   
-                        }
-                    </script>
                     <div class="card-footer text-muted bg-warning">
                         <div class="row">
-                            <div class="col-md-3"> <a href="#" class="btn btn-lg btn-danger w-100" onclick="testclick();">30 dklık veriyi getir</a></div>
+                            <div class="col-md-3"> <a href="#" class="btn btn-lg btn-danger w-100" onclick="otuzdklikVeri();">30 dklık veriyi getir</a></div>
                             <div class="col-md-6"></div>
-                            <div class="col-md-3"> <a href="#" class="btn btn-lg btn-primary w-100" onclick="testclick();">Saatlik veriyi getir</a></div>
+                            <div class="col-md-3"> <a href="#" class="btn btn-lg btn-primary w-100" onclick="saatlikVeri();">Saatlik veriyi getir</a></div>
                         </div>
                     </div>
                   </div>
@@ -118,6 +109,23 @@
             <div class="col-md-2"></div>
         </div>
     </div>
+
+
+    <script>
+
+        function otuzdklikVeri(){
+
+            
+            window.location.replace("http://127.0.0.1:5000");   
+            }
+        function saatlikVeri(){
+
+           value= $( "#form" ).val();
+           $( "#saat" ).val(value)
+           carid=$( "#carid" ).val( {{car_id}}  )
+           window.location.replace("http://127.0.0.1:5000/tekaraba/"+{{car_id}}+"/"+value);   
+        }
+    </script>
 
    
 
