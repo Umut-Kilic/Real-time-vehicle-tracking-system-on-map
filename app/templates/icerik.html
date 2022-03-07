@@ -10,8 +10,16 @@
     
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@1,200&display=swap');
-      </style>
+    </style>
+
+
     <style>
+
+      *{
+        box-sizing: border-box;
+        margin: 0px;
+      }
+
       #link{
         text-decoration: none;
         color: white;
@@ -33,12 +41,26 @@
         font-weight: bolder;
         font-size: 20px;
       }
+      a{
+        color: white;
+        text-decoration: none;
+      }
+      a:active,a:visited{
+        color:white;
+      }
+      a:hover{
+        font-size: larger;
+        color: red;
+        font-weight: bolder;
+      }
+
+
     </style>
+
+
+
     <script type="text/javascript">
 
-
-     
-      
     function initMap() {
       var renksayaci=0;
       var markers=[];
@@ -106,18 +128,10 @@
         {% endfor %}
 
   
-}
+      }
 
     </script>
 
-        
-
-    <style>
-        *{
-            box-sizing: border-box;
-            margin: 0px;
-        }
-    </style>
 </head>
 <body>
   
