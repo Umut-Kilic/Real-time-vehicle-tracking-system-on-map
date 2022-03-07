@@ -14,7 +14,7 @@ def tekaraba(car_id,saat):
    print(saat)
    print(car_id)
    
-   return render_template('tekaraba.html',saat=saat,car_id=car_id)
+   return render_template('tekaraba.html',saat=str(saat).upper(),car_id=car_id)
 
 
 
