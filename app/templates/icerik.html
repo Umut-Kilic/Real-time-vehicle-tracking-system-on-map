@@ -35,10 +35,12 @@
     </style>
     <script type="text/javascript">
     function initMap() {
+      var sayac=0;
       var markers=[];
       var flightPlanCoordinates=[];
       const myLatLng = { lat: -25.363, lng: 131.044 };
       var flightPlanCoordinates=[]
+      var renkler=["#FF0000","1E90FF"]
       var map = new google.maps.Map(document.getElementById('map'), {
             center: { lat: 59.42190595212989, lng: 17.822133881640568 },
             zoom: 10
@@ -48,8 +50,6 @@
 
           {% for item in car.features %}
 
-
-    
          var marker =new google.maps.Marker({
             position: {lat :{{ item.x }} ,lng : {{ item.y }} } ,
             animation: google.maps.Animation.DROP,
@@ -66,9 +66,6 @@
           });
           markers.push(marker);
 
-          //alert(markers)
-         
-
           flightPlanCoordinates.push(
            { 'lat':{{item.x}} , 'lng':{{item.y}}}
           )
@@ -78,21 +75,21 @@
          flightPath = new google.maps.Polyline({
           path: flightPlanCoordinates,
           geodesic: true,
-          strokeColor: "#FF0000",
+          strokeColor: renkler[sayac],
           strokeOpacity: 1.0,
           strokeWeight: 2,
         });
+        sayac++;
 
         flightPath.setMap(map);
+        flightPlanCoordinates=[]
         flightPath=[]
+        markers=[]
           {% endfor %}
 
-  
 }
 
     </script>
-
-        
 
     <style>
         *{
