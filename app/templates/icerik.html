@@ -103,9 +103,7 @@
     });
     markers.push(marker);
 
-    //alert(markers)
-
-
+    
     flightPlanCoordinates.push(
       { 'lat': {{ item.x }} , 'lng': {{ item.y }}}
     )
@@ -135,20 +133,21 @@
     {% endfor %}
 
   
-      }
+    }
 
   </script>
+
 
 </head>
 
 <body>
 
-  <div class="container-fluid">
-    <div class="row">
+  <div class="container-fluid" style="padding: 0px;">
+    <div class="row" style="padding: 0px;">
       <div class="col-md-8 bg-info" style="height: 700px; padding: 0px; ">
         <h1 class="text-center mb-2" style=" margin-top: 0.3%; font-family: 'Kanit', sans-serif;">HOŞ GELDİN : {{isim}}
         </h1>
-        <div id="map" class="w-100" style="height:650px;"></div>
+        <div id="map" class="w-100" style="height:670px;"></div>
       </div>
       <div class="col-md-3 bg-success p-0" style="height: 500px;">
         <table style="display: flexbox;"
@@ -170,7 +169,7 @@
                   saat="1" ) }} }}>{{car.id}}</a></td>
               <td style="text-align: center; justify-content: center;">{{'%0.8f'|format(car.features[0].x|float)}} </td>
               <td style="text-align: center; justify-content: center;">{{'%0.8f'|format(car.features[0].y|float)}}</td>
-              <td style="text-align: center; justify-content: center;"><a href="#row2"><img src=""
+              <td style="text-align: center; justify-content: center;"><a href="#row2"><img class="w-100" src="{{ url_for('static', filename='images/search.png') }} "
                     alt="Goksel istiyor yapacak bir şey yok"></a></td>
             </tr>
             {% endfor %}
@@ -188,10 +187,10 @@
 
 
     </div>
-    <div class="row bg-success" style="height: 500px;" id="row2">
-      <div class="col-md-12">
+    <div class="row bg-success w-100" style="min-height: 500px; margin: 0px; padding: 0px;" id="row2">
+      <div class="col-md-12" style="padding: 0px;">
 
-        <table style="display: flexbox;"
+        <table  style="padding: 0px;"
           class="table table-dark table-hover table-striped table-responsive w-100 p-0 m-0">
           <thead>
             <tr>

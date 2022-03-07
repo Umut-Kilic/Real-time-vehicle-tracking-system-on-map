@@ -172,4 +172,19 @@ def getCarsIdFromUserId(id):
 
    print(car_id_list)
    return car_id_list
+
+
+def get_car_position_hourly(car_id,hour): 
+   x_list=[]
+   y_list=[]
+   date_list=[]
+   doc_ref = db.collection(u'ALLCARS').document(str(car_id))
+
+   doc = doc_ref.get()._data
+   
+   for value, date in doc.items():
+     date_list.append(value)
+
+   #pprint(date_list)
+   print(date_list)
    

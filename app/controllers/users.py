@@ -16,7 +16,6 @@ def getAllCars_30_min_request(userid):
     return cars
         
 
-
 def get_30_min_request(id):
     
     x,y,date=get_car_for_last_30_min(id)
