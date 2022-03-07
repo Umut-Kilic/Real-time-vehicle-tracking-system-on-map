@@ -9,10 +9,21 @@ app.secret_key = 'BAD_SECRET_KEY'
 
 
 
-@app.route('/car/<int:car_id>')
-def one_car(car_id):
+@app.route('/tekaraba/<int:car_id>/<int:saat>')
+def tekaraba(car_id,saat):
+   print(saat)
+   print(car_id)
    
-   return str(car_id)
+   return render_template('tekaraba.html',saat=saat,car_id=car_id)
+
+
+
+@app.route('/car/<int:car_id>/<int:saat>')
+def saatsecimi(car_id,saat):
+   print(saat)
+   print(car_id)
+   
+   return render_template("saatform.html",car_id=car_id)
 
 
 @app.route('/logout')
