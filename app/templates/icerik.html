@@ -34,7 +34,12 @@
       }
     </style>
     <script type="text/javascript">
+
+
+     
+      
     function initMap() {
+      var renksayaci=0;
       var markers=[];
       var flightPlanCoordinates=[];
       const myLatLng = { lat: -25.363, lng: 131.044 };
@@ -45,11 +50,12 @@
           });
 
           {% for car in cars %}
+          var randomColor = getRandomColor();
+          console.log(randomColor)
 
           {% for item in car.features %}
 
 
-    
          var marker =new google.maps.Marker({
             position: {lat :{{ item.x }} ,lng : {{ item.y }} } ,
             animation: google.maps.Animation.DROP,
@@ -72,20 +78,28 @@
           flightPlanCoordinates.push(
            { 'lat':{{item.x}} , 'lng':{{item.y}}}
           )
-          
+
           {% endfor %}
-                
+            
+        function getRandomColor(){
+        color=  '#' + Math.floor(Math.random()*16777215 ).toString(16).padStart(6, '0');
+          return color
+      }
+
          flightPath = new google.maps.Polyline({
           path: flightPlanCoordinates,
           geodesic: true,
-          strokeColor: "#FF0000",
+          strokeColor: getRandomColor(),
           strokeOpacity: 1.0,
           strokeWeight: 2,
         });
+        
 
         flightPath.setMap(map);
         flightPath=[]
-          {% endfor %}
+        markers=[]
+        flightPlanCoordinates=[]
+        {% endfor %}
 
   
 }
