@@ -38,7 +38,7 @@
       var markers=[];
       var flightPlanCoordinates=[];
       const myLatLng = { lat: -25.363, lng: 131.044 };
-
+      var flightPlanCoordinates=[]
       var map = new google.maps.Map(document.getElementById('map'), {
             center: { lat: 59.42190595212989, lng: 17.822133881640568 },
             zoom: 10
@@ -69,30 +69,25 @@
           //alert(markers)
          
 
-        
+          flightPlanCoordinates.push(
+           { 'lat':{{item.x}} , 'lng':{{item.y}}}
+          )
           
           {% endfor %}
           {% endfor %}
 
-      /*for (let i = 0; i < markers.length; i++) {
-      let kordinat={
-        lat:markers[i].lat,
-        lng: markers[i].lng
-      }
-      flightPlanCoordinates.push(kordinat);
-      alert(kordinat.lat+" "+kordinat.lng);
-      }
+  
+  const flightPath = new google.maps.Polyline({
+    path: flightPlanCoordinates,
+    geodesic: true,
+    strokeColor: "#FF0000",
+    strokeOpacity: 1.0,
+    strokeWeight: 2,
+  });
 
-      flightPath = new google.maps.Polyline({
-      path: flightPlanCoordinates,
-      geodesic: true,
-      strokeColor: "#FF0000",
-      strokeOpacity: 1.0,
-      strokeWeight: 2,
-    });
+  flightPath.setMap(map);
+}
 
-    flightPath.setMap(map);*/
-    }
     </script>
 
         
