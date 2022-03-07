@@ -44,7 +44,7 @@ def home():
          return render_template('icerik.html',isim=isim.upper(),cars=cars) 
        
    return render_template("index.html")
-
+   
 @app.route('/kayitol', methods=['POST', 'GET'])
 def kayit_ol():
    

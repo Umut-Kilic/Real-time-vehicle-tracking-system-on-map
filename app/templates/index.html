@@ -23,25 +23,25 @@
 	</div>
  </div>
  <div class="main">
-	<div class="col-md-6 col-sm-12">
+	<div class="mx-2 col-md-6 col-sm-12">
 		
-		<div style="height: 250px; width: 20%;">
+		<div style="height: 150px; width: 20%;">
 
 		</div>
-		<h1 class="text-center">Gelişmiş Araba Takip Sistemi</h1>
+		<h1 class="text-center mb-3">Gelişmiş Araba Takip Sistemi</h1>
 	
 		   
 		  <form action="{{ url_for('home') }}" method="post">
-			 <div class="form-group">
-				<label>Kullanıcı adı</label>
+			 <div class="form-group mb-4">
+				<label class="mb-1">Kullanıcı adı</label>
 				<input type="text" class="form-control" placeholder="Kullanıcı Adınız" name="username">
 			 </div>
-			 <div class="form-group">
-				<label>Şifre</label>
+			 <div class="form-group mb-4">
+				<label class="mb-1">Şifre</label>
 				<input type="password" class="form-control" placeholder="Şifre" name="password">
 			 </div>
-			 <button id="ozel" type="submit" class="btn btn-black">Giriş</button>
-			 <button id="ozel2" type="submit" class="btn btn-secondary"><a href=" {{ url_for('kayit_ol') }}">Kayıt ol</a></button>
+			 <button id="ozel" type="submit" class="mx-1 btn btn-black">Giriş</button>
+			 <button id="ozel2" type="submit" class="mx-1 btn btn-secondary"><a href=" {{ url_for('kayit_ol') }}">Kayıt ol</a></button>
 		  </form>
 	  
 	</div>
