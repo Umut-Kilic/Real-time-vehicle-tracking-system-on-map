@@ -11,103 +11,117 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.9.3/js/bootstrap-select.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
 </head>
 <style>
-    button{
-        height:20px;  
-        width:100px; 
-        margin: -20px -50px; 
-        position:relative;
-        top:50%; 
-        left:50%;
+    *{
+        box-sizing:border-box;
+        margin:0px;
     }
+
+    .box {
+        flex-direction:column;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .animasyon{
+        animation: bounceIn; 
+        animation-duration: 10s;
+    }
+
+    
+  
 </style>
 <body>
-    <script>
-     
 
-    </script>
+    <div class="container-fluid" >
+        <div class="row wow slideInRight" data-wow-offset="10"  data-wow-iteration="10"  style="height:160px;">
 
-
-
-    <div class="container" >
-
-        <div class="card text-center  "  >
+        </div>
+        <div class="row animasyon">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="card text-center">
             
-            <div class="card-header">
-                <h1>  {{car_id}} ID li Aracın  Son Kaç Saatlik Verisi Gelsin ?</h1>
+                    <div class="card-header bg-warning">
+                        <h1 class="text-center">  {{car_id}} Nolu Aracın</h1>
+        
+                    </div>
+                    <div class="card-body" style="height:200px;">
+                        <div class="row w-100 h-100">
+                        <div class="col-md-3">
 
+                        </div>
+                        <div class="col-md-6 box">
+                            <h3>Son Kaç Saatlik Verisi Gelsin ?</h3>
+                            <select  style="display:flexbox;" justify-content:center; id="form"class="form-select form-control" aria-label="Default select example">
+                           
+                                <option selected value="1">Bir</option>
+                                <option value="2">İki</option>
+                                <option value="3">Üç</option>
+                                <option  value="4">Dört</option>
+                                <option value="5">Beş</option>
+                                <option value="6">Altı</option>
+                                <option  value="7">Yedi</option>
+                                <option value="8">Sekiz</option>
+                                <option value="9">Dokuz</option>   
+                                <option  value="10">On</option>
+                                <option value="11">Onbir</option>
+                                <option value="12">On iki</option>  
+                                <option  value="13">On üç</option>
+                                <option value="14">On dort</option>
+                                <option value="15">On beş</option> 
+                                <option  value="16">On altı</option>
+                                <option value="17">On yedi</option>
+                                <option value="18">On sekiz</option>     
+                                <option  value="19">On dokuz</option>
+                                <option value="20">Yirmi</option>
+                                <option value="21">Yirmi bir</option>
+                                <option value="22">Yirmi iki</option>
+                                <option value="23">Yirmi üç</option>
+                                <option value="24">Yirm dört</option>
+                              </select>
+                        </div>
+                        <div class="col-md-3"></div>
+                    </div>
+                         
+                    </div>
+        
+                    <form   id="sub" method="GET"  style="display: none;">
+                        <input id="saat" name="saat">
+                        <input id="carid" name="carid">
+                        <input   type="submit">
+                    </form>
+        
+                    <script>
+                        function testclick(){
+        
+                           value= $( "#form" ).val();
+                           $( "#saat" ).val(value)
+                           carid=$( "#carid" ).val( {{car_id}}  )
+                           window.location.replace("http://127.0.0.1:5000/tekaraba/"+{{car_id}}+"/"+value);   
+                        }
+                    </script>
+                    <div class="card-footer text-muted bg-warning">
+                        <div class="row">
+                            <div class="col-md-3"> <a href="#" class="btn btn-lg btn-danger w-100" onclick="testclick();">30 dklık veriyi getir</a></div>
+                            <div class="col-md-6"></div>
+                            <div class="col-md-3"> <a href="#" class="btn btn-lg btn-primary w-100" onclick="testclick();">Saatlik veriyi getir</a></div>
+                        </div>
+                    </div>
+                  </div>
             </div>
-            <div class="card-body">
-                
-                <select id="form"class="form-select " aria-label="Default select example">
-                   
-                   
-                    <option selected value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                    <option  value="4">Four</option>
-                    <option value="5">Five</option>
-                    <option value="6">Six</option>
-            
-            
-                    <option  value="7">Seven</option>
-                    <option value="8">Eight</option>
-                    <option value="9">Nine</option>   
-                    <option  value="10">Ten</option>
-                    <option value="11">Eleven</option>
-                    <option value="12">Twelve </option>  
-                    <option  value="13">Thirteen</option>
-                    <option value="14">Fourteen </option>
-                    <option value="15">Fifteen </option> 
-                    <option  value="16">Sixteen </option>
-                    <option value="17">Seventeen </option>
-                    <option value="18">Eighteen </option>     
-                    <option  value="19">Nineteen </option>
-                    <option value="20">Twenty</option>
-                    <option value="21">Twenty  One </option>
-                    <option value="22">Twenty  Twp </option>
-                    <option value="23">Twenty  Three </option>
-                    <option value="24">Twenty  Four </option>
-            
-                    
-                  </select>
-
-
-
-                  
-
-                  <div>
             </div>
-            </div>
-
-            <form  id="sub" method="GET"  style="display: none;">
-                <input id="saat" name="saat">
-                <input id="carid" name="carid">
-                <input   type="submit">
-            </form>
-
-            <script>
-                function testclick(){
-
-
-
-                   value= $( "#form" ).val();
-                   $( "#saat" ).val(value)
-                   carid=$( "#carid" ).val( {{car_id}}  )
-              
-
-                   window.location.replace("http://127.0.0.1:5000/tekaraba/"+{{car_id}}+"/"+value  );   
-
-                  
-                }
-            </script>
-            <div class="card-footer text-muted">
-                <a href="#" class="btn btn-primary" onclick="testclick();">Go somewhere</a>
-            </div>
-          </div>
-   
+            <div class="col-md-2"></div>
+        </div>
     </div>
+
+   
 
 </body>
 </html>
