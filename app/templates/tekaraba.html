@@ -7,10 +7,39 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNSNy-MC8K7chF-bcgYrPuFZ29mdsNtI0&callback=initMap"
     type="text/javascript"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@1,200&display=swap');
-      </style>
+    </style>
+
     <style>
+      *{
+          box-sizing: border-box;
+          margin: 0px;
+          font-size: 1.5vh;
+          padding: 0px;
+          overflow-y: hidden;
+      }
+      h1{
+        font-size: 6vh;
+      }
+   
+      a{
+        text-decoration: none;
+        font-size: 1.5vh!important;
+        color: black;
+        margin: 0px;
+        padding: 0px;
+        height: 30%;
+      }
+  
+      a:hover{
+        color: white;
+        font-size: 2vh!important;
+      }
+ 
       #link{
         text-decoration: none;
         color: white;
@@ -32,79 +61,88 @@
         font-weight: bolder;
         font-size: 20px;
       }
+
+      #r1{
+      height: 9vh;
+      }
+      #r3{
+        height: 91vh;
+
+      }
+
     </style>
 
-    <h1>
-       car id {{car_id}}
-    </h1>
-    <h1>
-      {{saat}} saatllik geçmiş
-    </h1>
-    <h1>
-     
-        <a href={{ url_for('saatsecimi',car_id=car_id , saat=saat) }} }}>
-        SAAT SEÇ
-      </a>
-    </h1>
-    <script type="text/javascript">
-    function initMap() {
-      const myLatLng = { lat: -25.363, lng: 131.044 };
+   
 
-      const map = new google.maps.Map(document.getElementById('map'), {
-            center: { lat: 59.42190595212989, lng: 17.822133881640568 },
-            zoom: 10
-          });
+   
 
-
-
-    };
-    </script>
-
-        
-
-    <style>
-        *{
-            box-sizing: border-box;
-            margin: 0px;
-        }
-    </style>
 </head>
 <body>
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta charset="UTF-8">
-        <title>Local Schools</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
-            integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
-            crossorigin="anonymous">
-        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNSNy-MC8K7chF-bcgYrPuFZ29mdsNtI0&callback=initMap"
-        type="text/javascript"></script>
-     
-    
-        
-    
-        <script type="text/javascript">
-            
-        function initMap() {
-            new google.maps.Map(document.getElementById('map'), {
-                center: { lat: -34.397, lng: 150.644 },
-                zoom: 16
-              });
-        }
-        </script>
-    </head>
-    <body>
-    <div class="container">
-        <div>
-            ewqe
+
+    <div class="container-fluid">
+      <div class="row " id="r1"  style="display: flex; text-align: center; justify-content: center; align-items: center; align-self: center;">
+        <div class="col-md-2"></div>
+        <div class="col-md-6">
+          <h1 class="text-center">CAR ID :  {{car_id}} {{saat}} SAATLİK GEÇMİŞ</h1>
         </div>
-        <div id="map" style="width:100%; height:500px;"></div>
-    </div>
-    </body>
-    </html>
+        <div class="col-md-1"></div>
+        <div class="col-md-2">
+          <a  class="btn btn-danger" href={{ url_for('saatsecimi',car_id=car_id , saat=saat) }} }}>Saat seçim ekranına dön</a> 
+         
+        </div>
+        <div class="col-md-1"></div>
+       
+      </div>
+      <div class="row" id="r3">
+
+        <div class="map"  id="map" style="width:100%;"></div>
+      </div>
   
-</div>
+       
+    </div>
+
+
+    <script type="text/javascript">
+      function initMap() {
+        const myLatLng = { lat: -25.363, lng: 131.044 };
+  
+        const map = new google.maps.Map(document.getElementById('map'), {
+              center: { lat: 59.42190595212989, lng: 17.822133881640568 },
+              zoom: 10
+            });
+  
+      };
+    </script>
+
+  <script type="text/javascript">
+  /*function yukle(){
+    var body = document.body,
+    html = document.documentElement;
+
+    var height = Math.max( body.scrollHeight, body.offsetHeight, 
+    html.clientHeight, html.scrollHeight, html.offsetHeight );
+
+    var hepsi=$('#æ').outerHeight(true);  
+
+    var satir1=$('#r1').outerHeight(true);  
+    var satir2=$('#r2').outerHeight(true);  
+    //var satir3=$('r3').outerHeight(true);  
+    var mapyuk=hepsi-satir1-satir2;
+    alert("container : "+hepsi);
+    alert("satir 1 : "+satir1);
+    alert("satir 2 : "+satir2);
+    alert("map yukseklık : "+mapyuk);
+    document.getElementById("#r3").style.height = mapyuk.toString()+" px";
+   
+
+    console.log("ANEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEMMMMM KURTAR BENI BY GOKSEL 1221");
+
+    //window.onload=yukle();
+
+  }*/
+
+
+</script>
+    
 </body>
 </html>
