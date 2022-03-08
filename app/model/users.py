@@ -193,6 +193,7 @@ def getCarsIdFromUserId(id):
    return car_id_list
 
 from datetime import datetime 
+import time
 def get_car_position_hourly(car_id,hour): 
    x_list=[]
    y_list=[]
@@ -218,7 +219,20 @@ def get_car_position_hourly(car_id,hour):
       y_list.append(position['y'])
       date_list.append(date)
    total_minute_list,x_list,x_list,date_list=bubblesort(total_minute_list,x_list,x_list,date_list)
-   print(total_minute_list)
+   total_minute_list =total_minute_list + total_minute_list
+   x_list =x_list + x_list
+   y_list =y_list + y_list
+   date_list =date_list + date_list
+   now = datetime.now()
+   now_total_minute=now.hour*60 + now.minute
+   maxminuteindex=total_minute_list.index(now_total_minute,1440)
+   minminuteindex= maxminuteindex- int(hour) * 60 
+   for i in range(minminuteindex,maxminuteindex):
+      pprint(date_list[i])
+   
+   
+   #ELIMIXDEKI MAXSİMUM INDEX == NEREDEN GERIYE DOGRU SAYILACAK
+   
    #print(qq)
    
    #total_min_list kücükten büyüge sırala: index değişirken x list , y list  ,  date list değiştir.
