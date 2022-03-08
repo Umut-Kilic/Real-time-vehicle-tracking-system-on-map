@@ -232,14 +232,6 @@ def get_car_position_hourly(car_id,hourr):
    
    date_list=date_list[minminuteindex:maxminuteindex]
    y_list=y_list[minminuteindex:maxminuteindex]
-   #atmayı unutmuşum
    return date_list , x_list , y_list
-   
-   
-   #ELIMIXDEKI MAXSİMUM INDEX == NEREDEN GERIYE DOGRU SAYILACAK
-   
-   #print(qq)
-   
-   #total_min_list kücükten büyüge sırala: index değişirken x list , y list  ,  date list değiştir.
    
    
