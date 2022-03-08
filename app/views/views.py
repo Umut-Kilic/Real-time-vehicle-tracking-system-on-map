@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for,render_template,request,flash
+from flask import Flask, redirect, url_for,render_template,request,flash,session
 app =Flask(__name__,template_folder='../templates',static_folder='../static')
 
 import sys
@@ -33,12 +33,23 @@ def logout_request():
 
 @app.route('/', methods=['POST', 'GET'])
 def home():
-   if request.method == 'POST':
-      isim = request.form.get('username') 
-      sifre = request.form.get('password')
-
+   sessionuser=session.get('username', 'not set')
+   sessionpassword=session.get('password','not set')
+   
+   if request.method == 'POST' or  (not sessionuser== 'not set' and not sessionpassword== 'not set') :
+      isim = request.form.get('username','not set') 
+      sifre = request.form.get('password','not set')
       
-      if(is_avaiable_login(isim, sifre)):
+      
+      
+      if not sessionuser  =='not set' and not sessionpassword  =='not set':
+         
+         isim=str(sessionuser)
+         sifre=str(sessionpassword)
+
+      print(isim)
+      print(sifre)
+      if(is_avaiable_login(isim, sifre) ):
          cars=getAllCars_30_min_request(5)
 
          return render_template('icerik.html',isim=isim.upper(),cars=cars) 

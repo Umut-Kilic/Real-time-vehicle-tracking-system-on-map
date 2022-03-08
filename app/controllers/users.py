@@ -34,13 +34,16 @@ def get_30_min_request(id):
     }
     return car
 
+
+
 def  add_user_request(username,email,password):
     add_user(username,email,password)
-    session['username']=username
+
+
 
 
 def is_avaiable_login(username,password):
-   
+    
     id= get_customer_id(username, password)
     if id != None:
         is_online(id,True)
@@ -48,9 +51,17 @@ def is_avaiable_login(username,password):
         setLoginTime(id,zaman)
         resetFailedCount(id)
         session['username']=username
+        session['password']=password
+
+      
         return True 
     else:
+       
+        
+            
         id= get_username_id(username)
+        
+        
         if updateFailedCount(id) >=3:
             flash("Kardesim manyak mısın yalnıs girme artık ban yicen.")
     
@@ -65,6 +76,8 @@ def user_logout():
         zaman=datetime.now()
         setLogoutTime(id, zaman)
         del session["username"]
+        del session["password"]
+
         return True
     else:
         return False

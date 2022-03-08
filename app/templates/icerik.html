@@ -88,7 +88,11 @@
 
 
       var marker = new google.maps.Marker({
-        position: { lat: {{ item.x }} , lng: { { item.y } } } ,
+        position: { lat: {{ item.x }} , lng: {{ item.y }} } ,
+
+
+
+
     animation: google.maps.Animation.DROP,
       map,
       label: " {{car.id}}",

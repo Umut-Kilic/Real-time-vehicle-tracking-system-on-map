@@ -111,6 +111,7 @@ def updateFailedCount(customer_id):
       sql_command="""Select failed_count From TBL_CUSTOMER WHERE customerId={} """
       cursor.execute(sql_command.format(customer_id))
       hatali_giris_sayisi=cursor.fetchone()
+     
       return hatali_giris_sayisi[0]
 
 
