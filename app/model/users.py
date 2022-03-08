@@ -1,4 +1,5 @@
 import sys
+from turtle import pos
 sys.path.append("../")
 
 import sqlite3
@@ -10,6 +11,23 @@ app=firebase_admin.initialize_app(kimlik)
 db=firestore.client()
 
 
+
+def swap(array, i, j):
+    tmp = array[i]
+    array[i] = array[j]
+    array[j] = tmp
+
+def bubblesort(array,temp1,temp2,temp3):
+   n = len(array)-1
+   for i in range(0, len(array)):
+        for j in range(0, n):
+            if array[j] > array[j+1]:
+                swap(array, j+1, j)
+                swap(temp1, j+1, j)
+                swap(temp3, j+1, j)
+                swap(temp2, j+1, j)
+        n -= 1
+   return array ,temp1,temp2,temp3
 
 
 conn=sqlite3.connect('../views/musteri_hesap_bilgileri.db', check_same_thread=False)
@@ -174,18 +192,36 @@ def getCarsIdFromUserId(id):
    print(car_id_list)
    return car_id_list
 
-
+from datetime import datetime 
 def get_car_position_hourly(car_id,hour): 
    x_list=[]
    y_list=[]
    date_list=[]
+   total_minute_list=[]
    doc_ref = db.collection(u'ALLCARS').document(str(car_id))
 
    doc = doc_ref.get()._data
    
-   for value, date in doc.items():
-     date_list.append(value)
+   for date, position in doc.items():
+      minute = str(date[-2:]) 
+      hour = str(date [-5:-3])
+   
+      if str(minute [0])==" ":
+         minute=minute[1]
+      if str(hour [0])==" ":
+         hour=hour[1]
+     
+      total_min=  int(hour) * 60 +  int(minute)
+      total_minute_list.append(total_min)
 
-   #pprint(date_list)
-   print(date_list)
+      x_list.append(position['x'])
+      y_list.append(position['y'])
+      date_list.append(date)
+   total_minute_list,x_list,x_list,date_list=bubblesort(total_minute_list,x_list,x_list,date_list)
+   print(total_minute_list)
+   #print(qq)
+   
+   #total_min_list kücükten büyüge sırala: index değişirken x list , y list  ,  date list değiştir.
+   
+get_car_position_hourly(10,1)
    
