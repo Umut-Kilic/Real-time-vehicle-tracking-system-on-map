@@ -1,11 +1,18 @@
 from gevent import monkey; monkey.patch_all()
-from flask import Flask, Response, render_template, stream_with_context
+from flask import Flask, Response, render_template, stream_with_context , url_for
 from gevent.pywsgi import WSGIServer
 import json
 import time
 
 app =Flask(__name__,template_folder='../templates',static_folder='../static')
 counter = 100
+
+
+
+##############################
+@app.route("/home")
+def home():
+  return render_template("icerik.html")
 
 ##############################
 @app.route("/")
