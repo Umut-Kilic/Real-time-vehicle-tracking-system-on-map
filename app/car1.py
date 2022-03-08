@@ -9,7 +9,8 @@ import pprint
 col_Names=["date", "x", "y", "carid"]
 data= pd.read_csv("allCars.csv",names=col_Names)
 
-conn=sqlite3.connect('musteri_hesap_bilgileri.db', check_same_thread=False)
+
+conn=sqlite3.connect('views/musteri_hesap_bilgileri.db', check_same_thread=False)
 cursor=conn.cursor()
 
 
@@ -66,8 +67,11 @@ while True:
 
     liste=getOnlineUsersCar(cursor)
 
-    
+    print("ACIK ARABALAR")
+    print(liste)
+    print("xxxxxxxxxxxxxx")
     for carid in liste:
+        
         car = data[ (data['carid'] ==carid[0])]
         x,y,date = car.x , car.y , car.date
  

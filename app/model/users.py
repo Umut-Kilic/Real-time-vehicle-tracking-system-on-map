@@ -227,8 +227,12 @@ def get_car_position_hourly(car_id,hourr):
    now_total_minute=now.hour*60 + now.minute
    maxminuteindex=total_minute_list.index(now_total_minute,1440)
    minminuteindex= maxminuteindex- int(hourr) * 60 
-   for i in range(minminuteindex,maxminuteindex):
-      pprint(date_list[i])
+
+   x_list=x_list[minminuteindex:maxminuteindex]
+   
+   date_list=date_list[minminuteindex:maxminuteindex]
+   y_list=y_list[minminuteindex:maxminuteindex]
+   #atmayı unutmuşum
    return date_list , x_list , y_list
    
    
@@ -238,5 +242,4 @@ def get_car_position_hourly(car_id,hourr):
    
    #total_min_list kücükten büyüge sırala: index değişirken x list , y list  ,  date list değiştir.
    
-get_car_position_hourly(10,1)
    

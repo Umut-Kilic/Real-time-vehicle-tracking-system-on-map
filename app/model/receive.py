@@ -33,13 +33,19 @@ def callback(ch, method, properties, body):
     date=listem[7][5:]+" "+listem[8]
     print(str(x))
     document=db.collection("data").document(idd)
-
-    document.update({
+    try:
+        document.update({
         
-   date: {"x":x,
-    "y":y
-    }})
-
+        date: {"x":x,
+            "y":y
+            }})
+    except:
+        document.set({
+        
+        date: {"x":x,
+            "y":y
+            }})
+        
 channel.basic_consume(
     queue=queue_name, on_message_callback=callback, auto_ack=True)
 

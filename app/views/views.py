@@ -3,7 +3,7 @@ app =Flask(__name__,template_folder='../templates',static_folder='../static')
 
 import sys
 sys.path.append("../")
-from controllers.users import add_user_request , get_password,is_avaiable_login,user_logout , get_30_min_request , getAllCars_30_min_request
+from controllers.users import   getHourlyCarRequest, add_user_request , get_password,is_avaiable_login,user_logout , get_30_min_request , getAllCars_30_min_request
 
 app.secret_key = 'BAD_SECRET_KEY'
 
@@ -11,18 +11,14 @@ app.secret_key = 'BAD_SECRET_KEY'
 
 @app.route('/tekaraba/<int:car_id>/<int:saat>')
 def tekaraba(car_id,saat):
-   print(saat)
-   print(car_id)
-   
-   return render_template('saatlikveri.html',saat=str(saat).upper(),car_id=car_id)
+   car=getHourlyCarRequest(car_id,saat)
+   return render_template('saatlikveri.html',saat=str(saat).upper(),car_id=car_id,car=car)
 
 
 
 @app.route('/car/<int:car_id>/<int:saat>')
 def saatsecimi(car_id,saat):
-   print(saat)
-   print(car_id)
-   
+
    return render_template("saatform.html",car_id=car_id)
 
 

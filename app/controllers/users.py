@@ -7,6 +7,26 @@ from model.users import *
 from datetime import datetime
 
 
+def getHourlyCarRequest(id,hour):
+    date,x,y=get_car_position_hourly(id,hour)
+    posts=[]
+    print(len(x))
+    for i in range(len(x)):
+        post={
+            'x':x[i],
+            'y':y[i],
+            'date':date[i]
+        }
+        posts.append(post)
+        
+    car={
+        "id":id,
+        "features":posts
+    
+    }
+    print(len(car['features']))
+    return car 
+
 def getAllCars_30_min_request(userid):
     car_id_list=getCarsIdFromUserId(userid)
     cars=[]
