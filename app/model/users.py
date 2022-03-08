@@ -194,7 +194,7 @@ def getCarsIdFromUserId(id):
 
 from datetime import datetime 
 import time
-def get_car_position_hourly(car_id,hour): 
+def get_car_position_hourly(car_id,hourr): 
    x_list=[]
    y_list=[]
    date_list=[]
@@ -226,9 +226,10 @@ def get_car_position_hourly(car_id,hour):
    now = datetime.now()
    now_total_minute=now.hour*60 + now.minute
    maxminuteindex=total_minute_list.index(now_total_minute,1440)
-   minminuteindex= maxminuteindex- int(hour) * 60 
+   minminuteindex= maxminuteindex- int(hourr) * 60 
    for i in range(minminuteindex,maxminuteindex):
       pprint(date_list[i])
+   return date_list , x_list , y_list
    
    
    #ELIMIXDEKI MAXSİMUM INDEX == NEREDEN GERIYE DOGRU SAYILACAK
