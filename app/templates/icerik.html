@@ -14,12 +14,19 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@1,200&display=swap');
   </style>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+  </style>
 
 
   <style>
     * {
       box-sizing: border-box;
       margin: 0px;
+    }
+
+    body {
+      background-color: salmon;
     }
 
     #link {
@@ -88,26 +95,22 @@
 
 
       var marker = new google.maps.Marker({
-        position: { lat: {{ item.x }} , lng: {{ item.y }} } ,
-
-
-
-
-    animation: google.maps.Animation.DROP,
-      map,
-      label: " {{car.id}}",
+        position: { lat: {{ item.x }} , lng: {{ item.y }} },
+        animation: google.maps.Animation.DROP,
+        map,
+        label: " {{car.id}}",
         description: "Bilgi"
           });
-    marker.description = new google.maps.InfoWindow({
-      content: " {{item.date}}"
-    });
+         marker.description = new google.maps.InfoWindow({
+         content: " {{item.date}}"
+        });
     google.maps.event.addListener(marker, 'click', function () {
       this.description.setPosition(this.getPosition());
       this.description.open(map); //map to display on
     });
     markers.push(marker);
 
-    
+
     flightPlanCoordinates.push(
       { 'lat': {{ item.x }} , 'lng': {{ item.y }}}
     )
@@ -147,15 +150,22 @@
 <body>
 
   <div class="container-fluid" style="padding: 0px;">
-    <div class="row" style="padding: 0px;">
-      <div class="col-md-8 bg-info" style="height: 700px; padding: 0px; ">
-        <h1 class="text-center mb-2" style=" margin-top: 0.3%; font-family: 'Kanit', sans-serif;">HOŞ GELDİN : {{isim}}
-        </h1>
-        <div id="map" class="w-100" style="height:670px;"></div>
+    <div class="row w-100 m-0 " style=" padding: 0px;">
+      <div class="col-md-10 col-sm-9 col-9 mt-sm-1" style="height: 65px; padding: 0px; ">
+        <h1 class="pt-1 mb-0 text-center" style="height: 100%; font-family: 'Pacifico', cursive;">HOŞ GELDİN : {{isim}}</h1>
+
       </div>
-      <div class="col-md-3 bg-success p-0" style="height: 500px;">
-        <table style="display: flexbox;"
-          class="table table-dark table-hover table-striped table-responsive w-100 p-0 m-0">
+      <div class="col-md-2 col-sm-3 col-3  mt-sm-1 p-0">
+        <a id="link" style="display: block; height: 100%; text-align: center; justify-content: center;"
+          class="text-center pt-2 pt-sm-2" href="{{ url_for('logout_request') }}"> Çıkış Yap</a>
+      </div>
+    </div>
+
+    <div class="row w-100 m-0" style="padding: 0px;">
+      <div id="map" class="col-md-9 p-0" style="height:670px;">
+      </div>
+      <div class="col-md-3 p-0" style="height: auto">
+        <table style="padding: 0px;" class="table table-dark table-hover table-striped table-responsive w-100 p-0 m-0">
           <thead>
             <tr>
               <th style="text-align: center; justify-content: center;">Araç Id</th>
@@ -169,11 +179,14 @@
 
             {% for car in cars %}
             <tr>
-              <td style="text-align: center; justify-content: center;"> <a href={{ url_for('saatsecimi',car_id=car.id ,
-                  saat="1" ) }} }}>{{car.id}}</a></td>
-              <td style="text-align: center; justify-content: center;">{{'%0.8f'|format(car.features[0].x|float)}} </td>
-              <td style="text-align: center; justify-content: center;">{{'%0.8f'|format(car.features[0].y|float)}}</td>
-              <td style="text-align: center; justify-content: center;"><a href="#row2"><img class="w-100" src="{{ url_for('static', filename='images/search.png') }} "
+              <td style="text-align: center; justify-content: center; align-items: center;"><a href={{
+                  url_for('saatsecimi',car_id=car.id , saat="1" ) }} }}>{{car.id}}</a></td>
+              <td style="text-align: center; justify-content: center; align-items: center; align-self: center;"">{{'%0.8f'|format(car.features[0].x|float)}}
+              </td>
+              <td style=" text-align: center; justify-content: center;">{{'%0.8f'|format(car.features[0].y|float)}}
+              </td>
+              <td style="text-align: center; justify-content: center;"><a href="#row2"><img class="w-100"
+                    src="{{ url_for('static', filename='images/search.png') }} "
                     alt="Goksel istiyor yapacak bir şey yok"></a></td>
             </tr>
             {% endfor %}
@@ -183,19 +196,12 @@
         </table>
 
       </div>
-      <div class="col-md-1 bg-primary" style="height: 500px;">
-        <a id="link" style="display: flex; justify-content: center; align-items: center;"
-          href="{{ url_for('logout_request') }}"> Çıkış Yap</a>
-      </div>
-
-
-
     </div>
-    <div class="row bg-success w-100" style="min-height: 500px; margin: 0px; padding: 0px;" id="row2">
+
+    <div class="row bg-success w-100 mt-sm-2 mt-2" style="min-height: 500px; margin: 0px; padding: 0px;" id="row2">
       <div class="col-md-12" style="padding: 0px;">
 
-        <table  style="padding: 0px;"
-          class="table table-dark table-hover table-striped table-responsive w-100 p-0 m-0">
+        <table style="padding: 0px;" class="table table-dark table-hover table-striped table-responsive w-100 p-0 m-0">
           <thead>
             <tr>
               <th style="text-align: center; justify-content: center;">Araç Id</th>
