@@ -75,6 +75,10 @@
 
     var markers = [];
     var map
+    var flightPath = [];
+    var flightPlanCoordinates = [];
+    var silinecekYollar=[]
+
 
     function addMarker(id,x,y,date) {
       
@@ -126,10 +130,8 @@
  })
 
  function drawRoad(markers){
-  var flightPlanCoordinates = [];
   var renkler = ['#e61919', "#478ccc", "#ff7f00", "#003153", "#b87333", "#01796f", "#682860", "#fba0e3"]
   var renksayaci = 0;
-  var flightPath = [];
   var x,y;
 
   for(var i = 0;i<markers.length;i++){
@@ -147,17 +149,25 @@
       strokeOpacity: 1.0,
       strokeWeight: 2,
     });
+    silinecekYollar.push(flightPath)
     flightPath.setMap(map);
     flightPath = []
     markers = []
     flightPlanCoordinates = []
  }
- /*function deleteRoad(){
-    flightPath.setMap(map);
+
+
+ function deleteRoad(){
+    
+
+  for (let i = 0;i<silinecekYollar.length;i++){
+    silinecekYollar[i].setMap(null)
+
+  }
     flightPath = []
     markers = []
     flightPlanCoordinates = []
- }*/
+ }
 
 
  function loadNewDecimal() {
@@ -167,6 +177,7 @@
 
      success: function (data) {
        deleteMarkers();
+       deleteRoad();
       
        for (let i = 0; i < data['cars'].length; i++) {
          

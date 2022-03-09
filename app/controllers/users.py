@@ -52,7 +52,7 @@ def get_30_min_request(id):
                 
         data_minute=int(date[i][-2:])
         data_hour=int(date[i][-5:-3])
-        for j in range(30):
+        for j in range(31):
             delta=now - datetime.timedelta(minutes=j)
            
 

@@ -195,6 +195,8 @@ def getCarsIdFromUserId(id):
 from datetime import datetime 
 import time
 def get_car_position_hourly(car_id,hourr): 
+   
+
    x_list=[]
    y_list=[]
    date_list=[]
