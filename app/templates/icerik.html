@@ -115,6 +115,7 @@
   function deleteMarkers() {
     clearMarkers();
     markers = [];
+    //deleteRoad();
   }
 
     var araclar=[]
@@ -151,6 +152,12 @@
     markers = []
     flightPlanCoordinates = []
  }
+ /*function deleteRoad(){
+    flightPath.setMap(map);
+    flightPath = []
+    markers = []
+    flightPlanCoordinates = []
+ }*/
 
 
  function loadNewDecimal() {
@@ -160,9 +167,7 @@
 
      success: function (data) {
        deleteMarkers();
-       
-       
-
+      
        for (let i = 0; i < data['cars'].length; i++) {
          
          id = data['cars'][i]['id']
