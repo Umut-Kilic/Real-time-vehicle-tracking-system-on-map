@@ -124,12 +124,21 @@
    }, 5000)
  })
 
- function drawRoad(){
-     
+ function drawRoad(markers){
+  var flightPlanCoordinates = [];
+  var renkler = ['#e61919', "#478ccc", "#ff7f00", "#003153", "#b87333", "#01796f", "#682860", "#fba0e3"]
+  var renksayaci = 0;
+  var flightPath = [];
+  var x,y;
 
-  flightPlanCoordinates.push(
-    { 'lat': x , 'lng': y}
-    )
+  for(var i = 0;i<markers.length;i++){
+      x=markers[i].position.toJSON().lat;
+      y=markers[i].position.toJSON().lng;
+      flightPlanCoordinates.push(
+      { 'lat': x , 'lng': y}
+      )
+   }
+
     flightPath = new google.maps.Polyline({
       path: flightPlanCoordinates,
       geodesic: true,
@@ -180,6 +189,7 @@
          }
        }
        setMapOnAll(map);
+       drawRoad(markers);
       
        
        /*var params=new URLSearchParams();
@@ -201,11 +211,7 @@
 
     function initMap() {
       console.log(araclar) 
-      var renksayaci = 0;
-      var flightPlanCoordinates = [];
       const myLatLng = { lat: -25.363, lng: 131.044 };
-      var flightPlanCoordinates = []
-      var renkler = ['#e61919', "#478ccc", "#ff7f00", "#003153", "#b87333", "#01796f", "#682860", "#fba0e3"]
       map = new google.maps.Map(document.getElementById('map'), {
         center: { lat: 59.42190595212989, lng: 17.822133881640568 },
         zoom: 8
