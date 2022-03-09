@@ -124,6 +124,25 @@
    }, 5000)
  })
 
+ function drawRoad(){
+     
+
+  flightPlanCoordinates.push(
+    { 'lat': x , 'lng': y}
+    )
+    flightPath = new google.maps.Polyline({
+      path: flightPlanCoordinates,
+      geodesic: true,
+      strokeColor: renkler[renksayaci],
+      strokeOpacity: 1.0,
+      strokeWeight: 2,
+    });
+    flightPath.setMap(map);
+    flightPath = []
+    markers = []
+    flightPlanCoordinates = []
+ }
+
 
  function loadNewDecimal() {
    $.ajax({
@@ -131,7 +150,7 @@
      type: 'GET',
 
      success: function (data) {
-       //deleteMarkers();
+       deleteMarkers();
        
        
 
@@ -149,15 +168,15 @@
            }
            if(arac!=null)
            {
-             addMarker(data['cars'][i]['id'].toString(),parseInt(data['cars'][i]['features'][j]['x']),parseInt(data['cars'][i]['features'][j]['y']),data['cars'][i]['features'][j]['date'].split(' ').reverse()[0])
+             addMarker(data['cars'][i]['id'].toString(),parseFloat(data['cars'][i]['features'][j]['x']),parseFloat(data['cars'][i]['features'][j]['y']),data['cars'][i]['features'][j]['date'].split(' ').reverse()[0])
              araclar.push(arac)
            }
-           if(araclar.length>30)
+           /*if(araclar.length>30)
              araclar.shift()
 
            if(markers.length>30){
              markers.shift()
-           }
+           }*/
          }
        }
        setMapOnAll(map);
@@ -191,59 +210,6 @@
         center: { lat: 59.42190595212989, lng: 17.822133881640568 },
         zoom: 8
       });
-
-      for (let key in araclar) {
-        alert("asfsf")
-        var id=key['id'];
-        console.log("İd: "+id)
-        console.log("tamam 1221 : "+araclar[key]['ozellikler'])
-         
-          for (let key1 in araclar[key]['ozellikler']){
-            alert("asfsf")
-            var x=araclar[key]['ozellikler'][key1]['x']
-            var y=araclar[key]['ozellikler'][key1]['y']
-            var date=araclar[key]['ozellikler'][key1]['date']
-            console.log("X: "+x+" Y: "+y+" Date : "+date)
-
-            var marker = new google.maps.Marker({
-      
-              position: { lat: x , lng: y },
-          animation: google.maps.Animation.DROP,
-            map,
-            label: id,
-              description: "Bilgi"
-                });
-          marker.description = new google.maps.InfoWindow({
-            content: date
-          });
-          google.maps.event.addListener(marker, 'click', function () {
-            this.description.setPosition(this.getPosition());
-            this.description.open(map); //map to display on
-          });
-          markers.push(marker);
-          }
-
-          flightPlanCoordinates.push(
-          { 'lat': x , 'lng': y}
-          )
-          flightPath = new google.maps.Polyline({
-            path: flightPlanCoordinates,
-            geodesic: true,
-            strokeColor: renkler[renksayaci],
-            strokeOpacity: 1.0,
-            strokeWeight: 2,
-          });
-          flightPath.setMap(map);
-    flightPath = []
-    markers = []
-    flightPlanCoordinates = []
-      }
-
-     
-    // Sets the map on all markers in the array.
-    for (var i = 0; i < markers.length; i++) {
-      markers[i].setMap(map);
-      }
 
     }
 
