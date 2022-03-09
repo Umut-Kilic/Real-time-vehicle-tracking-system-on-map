@@ -31,21 +31,15 @@ def callback(ch, method, properties, body):
     x=listem[3]
     y=listem[6]
     date=listem[7][5:]+" "+listem[8]
-    print(str(x))
-    document=db.collection("data").document(idd)
-    try:
-        document.update({
-        
-        date: {"x":x,
-            "y":y
-            }})
-    except:
-        document.set({
-        
-        date: {"x":x,
-            "y":y
-            }})
-        
+    print(str(date))
+    document=db.collection(u"data").document(idd)
+
+    document.update({
+    
+    date: {"x":x,
+        "y":y
+        }})
+
 channel.basic_consume(
     queue=queue_name, on_message_callback=callback, auto_ack=True)
 

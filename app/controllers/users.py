@@ -4,13 +4,12 @@ sys.path.append("../")
 
 
 from model.users import *
-from datetime import datetime
+import datetime
 
 
 def getHourlyCarRequest(id,hour):
     date,x,y=get_car_position_hourly(id,hour)
     posts=[]
-    print(len(x))
     for i in range(len(x)):
         post={
             'x':x[i],
@@ -24,7 +23,6 @@ def getHourlyCarRequest(id,hour):
         "features":posts
     
     }
-    print(len(car['features']))
     return car 
 
 def getAllCars_30_min_request(userid):
@@ -35,23 +33,43 @@ def getAllCars_30_min_request(userid):
         cars.append(car)
     return cars
         
-
 def get_30_min_request(id):
     
+    now=datetime.datetime.now()
+    current_minute=now.minute
+    current_hour=now.hour
     x,y,date=get_car_for_last_30_min(id)
-    posts=[]
-    for i in range(len(x)):
-        post={
-            'x':x[i],
-            'y':y[i],
-            'date':date[i]
-        }
-        posts.append(post)
-    car={
-        "id":id,
-        "features":posts
     
-    }
+    posts=[]
+    
+
+        
+    
+    
+
+    for i in range(len(x)):
+        
+                
+        data_minute=int(date[i][-2:])
+        data_hour=int(date[i][-5:-3])
+        for j in range(30):
+            delta=now - datetime.timedelta(minutes=j)
+           
+
+            if data_minute ==delta.minute and data_hour ==delta.hour:
+                post={
+                    'x':x[i],
+                    'y':y[i],
+                    'date':date[i]
+                }
+                
+                posts.append(post)
+    car={
+    "id":id,
+    "features":posts
+
+}  
+    print(len(car['features']))
     return car
 
 
@@ -67,7 +85,7 @@ def is_avaiable_login(username,password):
     id= get_customer_id(username, password)
     if id != None:
         is_online(id,True)
-        zaman=datetime.now()
+        zaman=datetime.datetime.now()
         setLoginTime(id,zaman)
         resetFailedCount(id)
         session['username']=username

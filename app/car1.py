@@ -27,7 +27,7 @@ def otuzyolla(index,car,id):
     qq=datetime.datetime.now()
     qq= (qq.hour * 60 ) + qq.minute
  
-    for i in range(-29,1):    
+    for i in range(-31,1):    
         currentindex=qq + i
         date=car.values[currentindex][0]
         x=car.values[currentindex][1]

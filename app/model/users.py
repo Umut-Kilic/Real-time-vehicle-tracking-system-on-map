@@ -1,4 +1,5 @@
 import sys
+from tkinter import X
 from turtle import pos
 sys.path.append("../")
 
@@ -41,7 +42,7 @@ def get_car_for_last_30_min(id):
    x_list=[]
    y_list=[]
    date_list=[]
-   doc_ref = db.collection(u'data').document(str(id))
+   doc_ref = db.collection('data').document(str(id))
    
    doc = doc_ref.get()._data
 
@@ -51,7 +52,6 @@ def get_car_for_last_30_min(id):
      date_list.append(value)
    return x_list , y_list , date_list 
    
-get_car_for_last_30_min(1)
 
 def get_password(username):
    cursor.execute("""Select password From TBL_CUSTOMER Where username = ?""",(username))
@@ -189,7 +189,7 @@ def getCarsIdFromUserId(id):
    for carid in carids:
       car_id_list.append(carid[0])
 
-   print(car_id_list)
+  
    return car_id_list
 
 from datetime import datetime 
