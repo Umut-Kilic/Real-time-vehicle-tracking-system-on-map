@@ -44,7 +44,6 @@ def ver_abi_tüm_arabalari():
          "cars": cars
       }
    
-   
 
    return   context
 

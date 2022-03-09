@@ -162,7 +162,11 @@ function loadNewDecimal() {
         type:'GET',
       
         success:function(data){
-            console.log(data);
+
+
+          
+            console.log(data['cars'][1]['id'])
+            console.log(data['cars'][1]['features']);
         }
     })
 }
