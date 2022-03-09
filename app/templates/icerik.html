@@ -10,7 +10,7 @@
   <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNSNy-MC8K7chF-bcgYrPuFZ29mdsNtI0&callback=initMap"
     type="text/javascript"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@1,200&display=swap');
@@ -71,59 +71,179 @@
     }
   </style>
 
+  <script >
+    var araclar=[]
+     $(function () {
+    window.setInterval(function () {
+      loadNewDecimal()
+    }, 1000)
+  })
+
+
+  function loadNewDecimal() {
+    $.ajax({
+      url: '/30_dakkalik_arabalar',
+      type: 'GET',
+
+      success: function (data) {
+        
+
+        for (let i = 0; i < data['cars'].length; i++) {
+          // console.log(['cars'][i])
+          id = data['cars'][i]['id']
+         // console.log(id)
+          for (let j = 0; j < data['cars'][i]['features'].length; j++) {
+            var arac={
+              id:data['cars'][i]['id'],
+              ozellikler:[{
+              x:data['cars'][i]['features'][j]['x'],
+              y:data['cars'][i]['features'][j]['y'],
+              date:data['cars'][i]['features'][j]['date'].split(' ').reverse()[0]}]
+            }
+            if(arac!=null)
+            {
+              araclar.push(arac)
+            }
+            if(araclar.length>30)
+              araclar.shift()
+          }
+        }
+        //console.log(araclar)
+        initMap(araclar)
+        /*var params=new URLSearchParams();
+        params.append("araclar",JSON.stringfy(araclar));
+        location.href="icerik.html?"+params.toString();*/
+
+      }
+    }
+    )
+  }
+
+ 
+  </script>
 
 
   <script type="text/javascript">
+    
+    /*var params=new URLSearchParams(window.location.search);
+    var araclar=JSON.parse(params.get("araclar"))
+    console.log(araclar)*/
 
-    function initMap() {
+    var markers = [];
+    function initMap(araclar) {
+      
+      // Removes the markers from the map, but keeps them in the array.
+      for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(null);
+     }
+    // Deletes all markers in the array by removing references to them.
+      for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(null);
+        markers = [];
+       }
+
+      
       var renksayaci = 0;
-      var markers = [];
+     
       var flightPlanCoordinates = [];
       const myLatLng = { lat: -25.363, lng: 131.044 };
       var flightPlanCoordinates = []
       var renkler = ['#e61919', "#478ccc", "#ff7f00", "#003153", "#b87333", "#01796f", "#682860", "#fba0e3"]
       var map = new google.maps.Map(document.getElementById('map'), {
         center: { lat: 59.42190595212989, lng: 17.822133881640568 },
-        zoom: 10
+        zoom: 8
       });
 
-      {% for car in cars %}
+      
+    
+
+      //{% for araba in araclar %}
+      
+
       var randomColor = getRandomColor();
-      console.log(randomColor)
+      //console.log(randomColor)
 
-      {% for item in car.features %}
+      //{% for item in araba.ozellikler %}
 
 
-      var marker = new google.maps.Marker({
-        position: { lat: {{ item.x }} , lng: {{ item.y }} },
-        animation: google.maps.Animation.DROP,
-        map,
-        label: " {{car.id}}",
+      for (let key in araclar) {
+        var id=araclar[key]['id'];
+         
+          for (let key1 in araclar[key]['ozellikler']){
+            var x=araclar[key]['ozellikler'][key1]['x']
+            var y=araclar[key]['ozellikler'][key1]['y']
+            var date=araclar[key]['ozellikler'][key1]['date']
+
+            var marker = new google.maps.Marker({
+      
+              position: { lat: x , lng: y },
+          animation: google.maps.Animation.DROP,
+            map,
+            label: id,
+              description: "Bilgi"
+                });
+          marker.description = new google.maps.InfoWindow({
+            content: date
+          });
+          google.maps.event.addListener(marker, 'click', function () {
+            this.description.setPosition(this.getPosition());
+            this.description.open(map); //map to display on
+          });
+          markers.push(marker);
+          }
+
+          flightPlanCoordinates.push(
+          { 'lat': x , 'lng': y}
+          )
+          flightPath = new google.maps.Polyline({
+            path: flightPlanCoordinates,
+            geodesic: true,
+            strokeColor: renkler[renksayaci],
+            strokeOpacity: 1.0,
+            strokeWeight: 2,
+          });
+          flightPath.setMap(map);
+    flightPath = []
+    markers = []
+    flightPlanCoordinates = []
+      }
+
+      /*var marker = new google.maps.Marker({
+      
+        position: { lat: {{ araba.x }} , lng: {{ araba.y }} },
+    animation: google.maps.Animation.DROP,
+      map,
+      label: " {{araba.id}}",
         description: "Bilgi"
           });
-         marker.description = new google.maps.InfoWindow({
-         content: " {{item.date}}"
-        });
+    marker.description = new google.maps.InfoWindow({
+      content: " {{araba.date}}"
+    });
     google.maps.event.addListener(marker, 'click', function () {
       this.description.setPosition(this.getPosition());
       this.description.open(map); //map to display on
     });
-    markers.push(marker);
+    markers.push(marker);*/
+
+    // Sets the map on all markers in the array.
+    for (var i = 0; i < markers.length; i++) {
+      markers[i].setMap(map);
+      }
 
 
-    flightPlanCoordinates.push(
-      { 'lat': {{ item.x }} , 'lng': {{ item.y }}}
-    )
+    /*flightPlanCoordinates.push(
+      { 'lat': {{ araba.x }} , 'lng': {{ araba.y }}}
+    )*/
 
-    {% endfor %}
+    //{% endfor %}
 
-    function getRandomColor() {
+    /*function getRandomColor() {
       color = '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
       return color
     }
-    console.log(getRandomColor());
+    console.log(getRandomColor());*/
 
-    flightPath = new google.maps.Polyline({
+    /*flightPath = new google.maps.Polyline({
       path: flightPlanCoordinates,
       geodesic: true,
       strokeColor: renkler[renksayaci],
@@ -136,11 +256,12 @@
     flightPath.setMap(map);
     flightPath = []
     markers = []
-    flightPlanCoordinates = []
-    {% endfor %}
+    flightPlanCoordinates = []*/
+    //{% endfor %}
 
   
     }
+
 
   </script>
 
@@ -148,29 +269,6 @@
 </head>
 
 
-<script>
-  $(function() {
-    window.setInterval(function() {
-        loadNewDecimal()
-    },1000)
-})
-
-
-function loadNewDecimal() {
-    $.ajax({
-        url:'/30_dakkalik_arabalar',
-        type:'GET',
-      
-        success:function(data){
-
-
-          
-            console.log(data['cars'][1]['id'])
-            console.log(data['cars'][1]['features']);
-        }
-    })
-}
-</script>
 
 
 <body>
@@ -178,7 +276,8 @@ function loadNewDecimal() {
   <div class="container-fluid" style="padding: 0px;">
     <div class="row w-100 m-0 " style=" padding: 0px;">
       <div class="col-md-10 col-sm-9 col-9 mt-sm-1" style="height: 65px; padding: 0px; ">
-        <h1 class="pt-1 mb-0 text-center" style="height: 100%; font-family: 'Pacifico', cursive;">HOŞ GELDİN : {{isim}}</h1>
+        <h1 class="pt-1 mb-0 text-center" style="height: 100%; font-family: 'Pacifico', cursive;">HOŞ GELDİN : {{isim}}
+        </h1>
 
       </div>
       <div class="col-md-2 col-sm-3 col-3  mt-sm-1 p-0">

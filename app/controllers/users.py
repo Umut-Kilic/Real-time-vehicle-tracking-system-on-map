@@ -83,7 +83,7 @@ def is_avaiable_login(username,password):
         
         
         if updateFailedCount(id) >=3:
-            flash("Kardesim manyak mısın yalnıs girme artık ban yicen.")
+            flash("Kardesim manyak mısın yanlış girme artık ban yicen.")
     
         return False
 

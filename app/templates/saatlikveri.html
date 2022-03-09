@@ -94,13 +94,19 @@
 
         <div id="map" style="width:100%;"></div>
       </div>
+      <div class="row">
+        <div class="col-md-12">
+          {{car}}
+        </div>
+      </div>
   
        
     </div>
 
 
 
-    {{car}}
+
+
     <script type="text/javascript">
 // This example creates a 2-pixel-wide red polyline showing the path of
 // the first trans-Pacific flight between Oakland, CA, and Brisbane,
@@ -136,6 +142,19 @@ alert(flightPlanCoordinates.length);
   flightPath.setMap(map);
 }  
     </script>
+
+    
+
+    <script>
+      /*for(let i =0;i<data['cars'].length;i++){
+                // console.log(['cars'][i])
+                id=data['cars'][i]['id']
+                console.log(id)
+                for(let j=0;j<data['cars'][i]['features'].length;j++){
+                  console.log(data['cars'][i]['features'][j])
+                  id=data['cars'][i]['id']
+                }            }*/
+    </script>
   
   <script type="text/javascript">
   /*function yukle(){
@@ -163,8 +182,6 @@ alert(flightPlanCoordinates.length);
     //window.onload=yukle();
 
   }*/
-
-
 </script>
     
 </body>
