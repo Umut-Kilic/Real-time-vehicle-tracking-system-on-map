@@ -196,33 +196,20 @@
              addMarker(data['cars'][i]['id'].toString(),parseFloat(data['cars'][i]['features'][j]['x']),parseFloat(data['cars'][i]['features'][j]['y']),data['cars'][i]['features'][j]['date'].split(' ').reverse()[0])
              araclar.push(arac)
            }
-           /*if(araclar.length>30)
-             araclar.shift()
-
-           if(markers.length>30){
-             markers.shift()
-           }*/
+  
          }
        }
        setMapOnAll(map);
        drawRoad(markers);
       
        
-       /*var params=new URLSearchParams();
-       params.append("araclar",JSON.stringfy(araclar));
-       location.href="icerik.html?"+params.toString();*/
-
+     
      }
    }
    )
  }
 
  
-    
-    /*var params=new URLSearchParams(window.location.search);
-    var araclar=JSON.parse(params.get("araclar"))
-    console.log(araclar)*/
-
    
 
     function initMap() {

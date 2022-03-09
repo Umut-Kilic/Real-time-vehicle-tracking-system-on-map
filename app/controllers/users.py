@@ -10,6 +10,12 @@ import datetime
 def getHourlyCarRequest(id,hour):
     date,x,y=get_car_position_hourly(id,hour)
     posts=[]
+    temp_date=date+date
+    temp_x=x+x 
+    temp_y=y+y
+        
+    
+    
     for i in range(len(x)):
         post={
             'x':x[i],
@@ -39,20 +45,19 @@ def get_30_min_request(id):
     current_minute=now.minute
     current_hour=now.hour
     x,y,date=get_car_for_last_30_min(id)
+
     
     posts=[]
-    
-
         
-    
-    
-
-    for i in range(len(x)):
+    for j in range(31):
         
-                
-        data_minute=int(date[i][-2:])
-        data_hour=int(date[i][-5:-3])
-        for j in range(31):
+      
+        
+        for i in range(len(x)):
+                      
+            data_minute=int(date[i][-2:])
+            data_hour=int(date[i][-5:-3])
+            
             delta=now - datetime.timedelta(minutes=j)
            
 
