@@ -208,7 +208,10 @@
           deleteRoad();
 
           for (let i = 0; i < data['cars'].length; i++) {
-
+              
+            flightPath = []
+            markers = []
+            flightPlanCoordinates = []
             id = data['cars'][i]['id']
             // console.log(id)
             for (let j = 0; j < data['cars'][i]['features'].length; j++) {
@@ -226,11 +229,12 @@
                 dinamikVeri(data['cars'][i]['id'].toString(), data['cars'][i]['features'][j]['x'].toString(), data['cars'][i]['features'][j]['y'].toString(), data['cars'][i]['features'][j]['date'].split(' ').reverse()[0].toString());
 
               }
+              setMapOnAll(map);
 
             }
+            drawRoad(markers);
+
           }
-          setMapOnAll(map);
-          drawRoad(markers);
 
 
 
