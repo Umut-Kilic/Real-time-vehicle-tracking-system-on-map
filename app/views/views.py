@@ -1,8 +1,7 @@
-from flask import Flask, redirect, url_for,render_template,request,flash,session , stream_with_context , Response
+from flask import Flask, redirect, url_for,render_template,request,flash,session
+from matplotlib.style import context
 app =Flask(__name__,template_folder='../templates',static_folder='../static')
-from gevent.pywsgi import WSGIServer
-import json
-import time
+
 import sys
 sys.path.append("../")
 from controllers.users import   getHourlyCarRequest, add_user_request , get_password,is_avaiable_login,user_logout , get_30_min_request , getAllCars_30_min_request
@@ -10,27 +9,6 @@ from controllers.users import   getHourlyCarRequest, add_user_request , get_pass
 app.secret_key = 'BAD_SECRET_KEY'
 
 
-
-
-
-##############################
-@app.route("/listen")
-def listen():
-
-  def respond_to_client():
-    while True:
-      global counter
-      with open("color.txt", "r") as f:
-        color = f.read()
-        print("******************")
-      if(color != "white"):
-        print(counter)
-        counter += 1
-        _data = json.dumps({"color":color, "counter":counter})
-        yield f"id: 1\ndata: {_data}\nevent: online\n\n"
-      time.sleep(0.5)
-  return Response(respond_to_client(), mimetype='text/event-stream')
-  
 
 @app.route('/tekaraba/<int:car_id>/<int:saat>')
 def tekaraba(car_id,saat):
@@ -49,6 +27,29 @@ def saatsecimi(car_id,saat):
 def logout_request():
    user_logout()
    return redirect(url_for('home')) 
+
+
+def convert(list):
+    return tuple(i for i in list)
+  
+  
+  
+
+@app.route('/30_dakkalik_arabalar')
+def ver_abi_tüm_arabalari():
+   cars=getAllCars_30_min_request(5)
+   
+
+   context = {
+         "cars": cars
+      }
+   
+   
+
+   return   context
+
+    
+   
 
 @app.route('/', methods=['POST', 'GET'])
 def home():
@@ -88,7 +89,5 @@ def kayit_ol():
    return render_template("kayit.html")
 
 
-
-
-http_server = WSGIServer(("localhost", 80), app)
-http_server.serve_forever()
+if __name__ == '__main__':
+   app.run(debug=True)
