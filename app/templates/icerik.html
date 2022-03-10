@@ -72,7 +72,7 @@
   </style>
 
   <script type="text/javascript">
-
+    var markerforpath=[]
     var markers = [];
     var map
     var flightPath = [];
@@ -96,6 +96,7 @@
         this.description.open(map); //map to display on
       });
       markers.push(marker);
+      markerforpath.push(marker)
       showMarkers();
     }
 
@@ -134,9 +135,9 @@
       var renksayaci = 0;
       var x, y;
 
-      for (var i = 0; i < markers.length; i++) {
-        x = markers[i].position.toJSON().lat;
-        y = markers[i].position.toJSON().lng;
+      for (var i = 0; i < markerforpath.length; i++) {
+        x = markerforpath[i].position.toJSON().lat;
+        y = markerforpath[i].position.toJSON().lng;
         flightPlanCoordinates.push(
           { 'lat': x, 'lng': y }
         )
@@ -153,12 +154,13 @@
       flightPath.setMap(map);
       flightPath = []
       markers = []
+      markerforpath=[]
       flightPlanCoordinates = []
     }
 
 
     function deleteRoad() {
-
+        deleteMarkers()
 
       for (let i = 0; i < silinecekYollar.length; i++) {
         silinecekYollar[i].setMap(null)
@@ -205,13 +207,12 @@
         type: 'GET',
 
         success: function (data) {
-          deleteMarkers();
           deleteRoad();
 
           for (let i = 0; i < data['cars'].length; i++) {
               
             flightPath = []
-            markers = []
+    
             flightPlanCoordinates = []
             id = data['cars'][i]['id']
             // console.log(id)
