@@ -31,8 +31,9 @@ def getHourlyCarRequest(id,hour):
     }
     return car 
 
-def getAllCars_30_min_request(userid):
-    car_id_list=getCarsIdFromUserId(userid)
+def getAllCars_30_min_request():
+    user_id=get_username_id(session.get('username'))
+    car_id_list=getCarsIdFromUserId(user_id)
     cars=[]
     for car_id in car_id_list:
         car=get_30_min_request(car_id)
@@ -116,7 +117,7 @@ def user_logout():
     id= get_username_id(username)
     if 'username' in session:
         is_online(id,False)
-        zaman=datetime.now()
+        zaman=datetime.datetime.now()
         setLogoutTime(id, zaman)
         del session["username"]
         del session["password"]

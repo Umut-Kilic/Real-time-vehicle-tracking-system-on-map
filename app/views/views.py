@@ -37,7 +37,7 @@ def convert(list):
 
 @app.route('/30_dakkalik_arabalar')
 def ver_abi_tüm_arabalari():
-   cars=getAllCars_30_min_request(5)
+   cars=getAllCars_30_min_request()
    
 
    context = {
@@ -69,7 +69,7 @@ def home():
       print(isim)
       print(sifre)
       if(is_avaiable_login(isim, sifre) ):
-         cars=getAllCars_30_min_request(5)
+         cars=getAllCars_30_min_request()
 
          return render_template('icerik.html',isim=isim.upper(),cars=cars) 
        

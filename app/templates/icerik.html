@@ -160,7 +160,10 @@
 
 
     function deleteRoad() {
+<<<<<<< Updated upstream
         deleteMarkers()
+=======
+>>>>>>> Stashed changes
 
       for (let i = 0; i < silinecekYollar.length; i++) {
         silinecekYollar[i].setMap(null)
@@ -183,9 +186,9 @@
         if (id != "" && x != "" && y != "" && date != "") {
 
           
-          if ($("#tblData tbody").children().length >=61) {
+          if ($("#tblData tbody").children().length >=63) {
             $("#tblData tbody").html("");
-            $("#tblData tbody").chidlren().remove();
+            $("#tblData tbody").children().remove();
           }
 
           var satir = "<tr><td style='text-align: center; justify-content: center;'>" + id1 + "</td><td style='text-align: center; justify-content: center;'>" + x1.substring(0, 10) + "</td><td style='text-align: center; justify-content: center;'>" + y1.substring(0, 10) + "</td><td style='text-align: center; justify-content: center;'>" + date1 + "</td></tr>";
@@ -212,7 +215,11 @@
           for (let i = 0; i < data['cars'].length; i++) {
               
             flightPath = []
+<<<<<<< Updated upstream
     
+=======
+            //markers = []
+>>>>>>> Stashed changes
             flightPlanCoordinates = []
             id = data['cars'][i]['id']
             // console.log(id)
@@ -227,9 +234,8 @@
               }
               if (arac != null) {
                 addMarker(data['cars'][i]['id'].toString(), parseFloat(data['cars'][i]['features'][j]['x']), parseFloat(data['cars'][i]['features'][j]['y']), data['cars'][i]['features'][j]['date'].split(' ').reverse()[0])
-                araclar.push(arac)
                 dinamikVeri(data['cars'][i]['id'].toString(), data['cars'][i]['features'][j]['x'].toString(), data['cars'][i]['features'][j]['y'].toString(), data['cars'][i]['features'][j]['date'].split(' ').reverse()[0].toString());
-
+                araclar.push(arac)
               }
               setMapOnAll(map);
 
