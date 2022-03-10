@@ -6,6 +6,27 @@ sys.path.append("../")
 from model.users import *
 import datetime
 
+def get_session_user():
+    sessionuser=session.get('username', 'not set')
+    sessionpassword=session.get('password','not set')
+    return sessionuser,sessionpassword
+    
+
+def is_not_session_user():
+    sessionuser=session.get('username', 'not set')
+    sessionpassword=session.get('password','not set')
+    if not sessionuser  =='not set' and not sessionpassword  =='not set':
+        return True
+    return False    
+
+
+def is_have_session_user():
+    sessionuser=session.get('username', 'not set')
+    sessionpassword=session.get('password','not set')
+    if (not sessionuser== 'not set' and not sessionpassword== 'not set') :
+        return True
+    return False
+   
 
 def getHourlyCarRequest(id,hour):
     date,x,y=get_car_position_hourly(id,hour)
