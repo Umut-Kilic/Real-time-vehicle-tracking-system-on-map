@@ -19,6 +19,8 @@
     @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
   </style>
 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
   <style>
     * {
       box-sizing: border-box;
@@ -72,7 +74,7 @@
   </style>
 
   <script type="text/javascript">
-    var markerforpath=[]
+    var markerforpath = []
     var markers = [];
     var map
     var flightPath = [];
@@ -129,20 +131,21 @@
         loadNewDecimal()
       }, 5000)
     })
-
+    var renksayaci = 0;
     function drawRoad(markers) {
       var renkler = ['#e61919', "#478ccc", "#ff7f00", "#003153", "#b87333", "#01796f", "#682860", "#fba0e3"]
-      var renksayaci = 0;
       var x, y;
-
+      var id = markerforpath[0].getLabel();
       for (var i = 0; i < markerforpath.length; i++) {
         x = markerforpath[i].position.toJSON().lat;
         y = markerforpath[i].position.toJSON().lng;
+        if (id != markerforpath[i].getLabel()) {
+          renksayaci++;
+        }
         flightPlanCoordinates.push(
           { 'lat': x, 'lng': y }
         )
       }
-
       flightPath = new google.maps.Polyline({
         path: flightPlanCoordinates,
         geodesic: true,
@@ -154,16 +157,15 @@
       flightPath.setMap(map);
       flightPath = []
       markers = []
-      markerforpath=[]
+      markerforpath = []
       flightPlanCoordinates = []
+      renksayaci++;
+
     }
 
 
     function deleteRoad() {
-<<<<<<< Updated upstream
-        deleteMarkers()
-=======
->>>>>>> Stashed changes
+      deleteMarkers()
 
       for (let i = 0; i < silinecekYollar.length; i++) {
         silinecekYollar[i].setMap(null)
@@ -174,7 +176,7 @@
       flightPlanCoordinates = []
     }
 
-    function dinamikVeri(id,x,y,date) {
+    function dinamikVeri(id, x, y, date) {
 
       $(document).ready(function () {
 
@@ -185,8 +187,8 @@
 
         if (id != "" && x != "" && y != "" && date != "") {
 
-          
-          if ($("#tblData tbody").children().length >=63) {
+
+          if ($("#tblData tbody").children().length >= 63) {
             $("#tblData tbody").html("");
             $("#tblData tbody").children().remove();
           }
@@ -198,7 +200,7 @@
         else {
           var bosSatir = "<tr><td colspan='4' class='text-center'> Boş Veri</td></tr>";
           $("#tblData tbody").append(bosSatir);
-  
+
         }
       });
     }
@@ -210,16 +212,13 @@
         type: 'GET',
 
         success: function (data) {
+          renksayaci = 0;
           deleteRoad();
 
           for (let i = 0; i < data['cars'].length; i++) {
-              
+
             flightPath = []
-<<<<<<< Updated upstream
-    
-=======
-            //markers = []
->>>>>>> Stashed changes
+
             flightPlanCoordinates = []
             id = data['cars'][i]['id']
             // console.log(id)
@@ -275,8 +274,8 @@
 
 <body>
 
-  <div class="container-fluid" style="padding: 0px;">
-    <div class="row w-100 m-0 " style=" padding: 0px;">
+  <div class="container-fluid bg-warning" style="padding: 0px;">
+    <div class="row w-100 m-0 bg-info " style=" padding: 0px;">
       <div class="col-md-10 col-sm-9 col-9 mt-sm-1" style="height: 65px; padding: 0px; ">
         <h1 class="pt-1 mb-0 text-center" style="height: 100%; font-family: 'Pacifico', cursive;">HOŞ GELDİN : {{isim}}
         </h1>
@@ -288,7 +287,7 @@
       </div>
     </div>
 
-    <div class="row w-100 m-0" style="padding: 0px;">
+    <div class="row w-100 m-0 bg-warning" style="padding: 0px;">
       <div id="map" class="col-md-9 p-0" style="height:670px;">
       </div>
       <div class="col-md-3 p-0" style="height: auto">
