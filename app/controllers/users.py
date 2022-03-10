@@ -29,19 +29,52 @@ def is_have_session_user():
    
 
 def getHourlyCarRequest(id,hour):
-    date,x,y=get_car_position_hourly(id,hour)
-    posts=[]
-    temp_date=date+date
-    temp_x=x+x 
-    temp_y=y+y
+    doc=get_car_position_hourly(id,hour)
+    hourr=hour
+    total_minute_list=[]
+    x_list=[]
+    y_list=[]
+    date_list=[]
+    total_minute_list=[]
+    
+    for date, position in doc.items():
+        minute = str(date[-2:]) 
+        hour = str(date [-5:-3])
+    
+        if str(minute [0])==" ":
+            minute=minute[1]
+        if str(hour [0])==" ":
+            hour=hour[1]
         
+        total_min=  int(hour) * 60 +  int(minute)
+        total_minute_list.append(total_min)
+
+        x_list.append(position['x'])
+        y_list.append(position['y'])
+        date_list.append(date)
+    total_minute_list,x_list,x_list,date_list=bubblesort(total_minute_list,x_list,x_list,date_list)
+    total_minute_list =total_minute_list + total_minute_list
+    x_list =x_list + x_list
+    y_list =y_list + y_list
+    date_list =date_list + date_list
+    now = datetime.datetime.now()
+    now_total_minute=now.hour*60 + now.minute
+    maxminuteindex=total_minute_list.index(now_total_minute,1440)
+    minminuteindex= maxminuteindex- int(hourr) * 60 
+
+    x_list=x_list[minminuteindex:maxminuteindex]
     
+    date_list=date_list[minminuteindex:maxminuteindex]
+    y_list=y_list[minminuteindex:maxminuteindex]
     
+    posts=[]
+    
+    x,y,date =   x_list , y_list,date_list
     for i in range(len(x)):
         post={
             'x':x[i],
             'y':y[i],
-            'date':date[i]
+            'date':str(date[i])
         }
         posts.append(post)
         

@@ -194,46 +194,12 @@ def getCarsIdFromUserId(id):
 
 from datetime import datetime 
 import time
+
 def get_car_position_hourly(car_id,hourr): 
    
 
-   x_list=[]
-   y_list=[]
-   date_list=[]
-   total_minute_list=[]
    doc_ref = db.collection(u'ALLCARS').document(str(car_id))
 
    doc = doc_ref.get()._data
-   
-   for date, position in doc.items():
-      minute = str(date[-2:]) 
-      hour = str(date [-5:-3])
-   
-      if str(minute [0])==" ":
-         minute=minute[1]
-      if str(hour [0])==" ":
-         hour=hour[1]
-     
-      total_min=  int(hour) * 60 +  int(minute)
-      total_minute_list.append(total_min)
-
-      x_list.append(position['x'])
-      y_list.append(position['y'])
-      date_list.append(date)
-   total_minute_list,x_list,x_list,date_list=bubblesort(total_minute_list,x_list,x_list,date_list)
-   total_minute_list =total_minute_list + total_minute_list
-   x_list =x_list + x_list
-   y_list =y_list + y_list
-   date_list =date_list + date_list
-   now = datetime.now()
-   now_total_minute=now.hour*60 + now.minute
-   maxminuteindex=total_minute_list.index(now_total_minute,1440)
-   minminuteindex= maxminuteindex- int(hourr) * 60 
-
-   x_list=x_list[minminuteindex:maxminuteindex]
-   
-   date_list=date_list[minminuteindex:maxminuteindex]
-   y_list=y_list[minminuteindex:maxminuteindex]
-   return date_list , x_list , y_list
-   
+   return doc
    

@@ -1,3 +1,4 @@
+from pprint import pprint
 from flask import Flask, redirect, url_for,render_template,request,flash,session
 from matplotlib.style import context
 app =Flask(__name__,template_folder='../templates',static_folder='../static')
@@ -12,6 +13,7 @@ app.secret_key = 'BAD_SECRET_KEY'
 @app.route('/tekaraba/<int:car_id>/<int:saat>')
 def tekaraba(car_id,saat):
    car=getHourlyCarRequest(car_id,saat)
+   pprint(car)
    return render_template('saatlikveri.html',saat=str(saat).upper(),car_id=car_id,car=car)
 
 @app.route('/car/<int:car_id>/<int:saat>')
