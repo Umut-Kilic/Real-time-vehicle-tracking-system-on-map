@@ -1,215 +1,205 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta charset="UTF-8">
-    <title>İçerik</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNSNy-MC8K7chF-bcgYrPuFZ29mdsNtI0&callback=initMap"
+  <meta charset="UTF-8">
+  <title>İçerik</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNSNy-MC8K7chF-bcgYrPuFZ29mdsNtI0&callback=initMap"
     type="text/javascript"></script>
 
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Ewert&display=swap');
-    </style>
-    
-
-    <style>
-      *{
-          box-sizing: border-box;
-          margin: 0px;
-          font-size: 1.5vh;
-          padding: 0px;
-         
-         
-      }
-      body{
-        background-color: aliceblue;
-      }
-      h1{
-        font-size: 7.5vh;
-      }
-      h3{
-        font-size: 4vh;
-      }
-      h1,h2,h3,h4,h5,h6{
-       
-        font-family: 'Ewert', cursive;
-      }
-   
-      a{
-        text-decoration: none;
-        font-size: 1.5vh!important;
-        color: black;
-        margin: 0px;
-        padding: 0px;
-      }
-  
-      a:hover{
-        color: white;
-        font-size: 2vh!important;
-      }
- 
-      #link{
-        text-decoration: none;
-        color: white;
-        font-size: 18px;
-        font-weight: bold;
-      }
-      #link:active{
-        text-decoration: underline;
-        color: blue;
-        font-weight: bolder;
-        font-size: 20px;
-      }
-      #link:visited{
-        color: white;
-      }
-      #link:hover{
-        text-decoration: dotted;
-        color: red;
-        font-weight: bolder;
-        font-size: 20px;
-      }
-
-      
-    </style>
-
   <style>
-  @import url('https://fonts.googleapis.com/css2?family=Princess+Sofia&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Ewert&display=swap');
   </style>
 
-   
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Slackey&display=swap');
+</style>
+
+
+
+
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0px;
+      font-size: 1.5vh;
+      padding: 0px;
+
+
+    }
+
+    body {
+      background-color: aliceblue;
+    }
+
+    h1 {
+      font-size: 7.5vh;
+    }
+
+    h3 {
+      font-size: 4vh;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+
+      font-family: 'Ewert', cursive;
+    }
+
+    a {
+      text-decoration: none;
+      font-size: 1.5vh !important;
+      color: black;
+      margin: 0px;
+      padding: 0px;
+      font-family: 'Patrick Hand', cursive;
+
+      
+
+    }
+
+    a:hover {
+      color: white;
+      font-size: 2vh !important;
+    }
+
+    #link {
+      text-decoration: none;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    #link:active {
+      text-decoration: underline;
+      color: blue;
+      font-weight: bolder;
+      font-size: 20px;
+    }
+
+    #link:visited {
+      color: white;
+    }
+
+    #link:hover {
+      text-decoration: dotted;
+      color: red;
+      font-weight: bolder;
+      font-size: 20px;
+    }
+  </style>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Princess+Sofia&display=swap');
+  </style>
+
+
 </head>
+
 <body>
 
-    <div class="container-fluid p-0">
-      <div class="row mx-0 w-100" id="r1" >
-        <div class="col-md-1 p-0"></div>
-        <div class="col-md-7 col-12 p-0">
-          <h1 style="margin-left: 25%!important;" class="mb-0">CAR ID : {{car_id}}</h1>
-          <h3 class="text-center mb-0">{{saat}} SAATLIK GEÇMIS VERI</h3>
+  <div class="container-fluid p-0">
+    <div class="row mx-0 w-100" id="r1">
+      <div class="col-md-1 p-0"></div>
+      <div class="col-md-7 col-12 p-0">
+        <h1 style="margin-left: 25%!important;" class="mb-0">CAR ID : {{car_id}}</h1>
+        <h3 class="text-center mb-0">{{saat}} SAATLIK GEÇMIS VERI</h3>
 
-        </div>
-        <div class="col-md-4 col-12 p-0 mb-3" style="height: 100%;">
-          <div class="row p-0 mt-5" style="height: 100%;">
-            <div class="col-md-6 col-sm-6 col-6"> <a  class="btn btn-danger btn-lg w-100" href={{ url_for('saatsecimi',car_id=car_id , saat=saat) }} }}>Saat seçim ekranına dön</a> 
-            </div>
-            <div class="col-md-6 col-sm-6 col-6"> <a id="buton"  class="btn btn-danger btn-lg w-100 " href="#tblData">Detaylı Verileri Gör</a></div>
+      </div>
+      <div class="col-md-4 col-12 p-0 mb-3" style="height: 100%;">
+        <div class="row p-0 mt-5" style="height: 100%;">
+          <div class="col-md-6 col-sm-6 col-6"> <a class="btn btn-danger btn-lg w-100" href={{
+              url_for('saatsecimi',car_id=car_id , saat=saat) }} }}>Saat seçim ekranına dön</a>
           </div>
-         
-        </div>      
-      </div>
-      <div class="row mx-0 mt-sm-4 mt-4 " id="r2">
+          <div class="col-md-6 col-sm-6 col-6"> <a id="buton" class="btn btn-danger btn-lg w-100 "
+              href="#tblData">Detaylı Verileri Gör</a></div>
+        </div>
 
-        <div id="map" style="width:100%; height: 650px;"></div>
       </div>
-      <div class="row mt-sm-2 mt-2 mx-0 w-100">
-        <div class="col-md-12 col-sm-12 col-12 p-0 ">
-          <table id="tblData" class="table table-dark table-hover table-striped table-responsive w-100 p-0 m-0">
-            <thead>
-              <tr>
-                <th style="text-align: center; justify-content: center;">Araç Id</th>
-                <th style="text-align: center; justify-content: center;">Araç Konum X</th>
-                <th style="text-align: center; justify-content: center;">Araç Konum Y</th>
-                <th style="text-align: center; justify-content: center;">Saat</th>
-  
-              </tr>
-            </thead>
-            <tbody>
-              {% for item in car.features %}
-              <tr>
-                <td style="text-align: center; justify-content: center; align-items: center;">{{car.id}}</td>
-                <td style="text-align: center; justify-content: center; align-items: center; align-self: center;"">{{'%0.8f'|format(item.x|float)}}
+    </div>
+    <div class="row mx-0 mt-sm-4 mt-4 " id="r2">
+
+      <div id="map" style="width:100%; height: 650px;"></div>
+    </div>
+    <div class="row mt-sm-2 mt-2 mx-0 w-100">
+      <div class="col-md-12 col-sm-12 col-12 p-0 ">
+        <table id="tblData" class="table table-dark table-hover table-striped table-responsive w-100 p-0 m-0">
+          <thead>
+            <tr>
+              <th style="text-align: center; justify-content: center;">Araç Id</th>
+              <th style="text-align: center; justify-content: center;">Araç Konum X</th>
+              <th style="text-align: center; justify-content: center;">Araç Konum Y</th>
+              <th style="text-align: center; justify-content: center;">Saat</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in car.features %}
+            <tr>
+              <td style="text-align: center; justify-content: center; align-items: center;">{{car.id}}</td>
+              <td style="text-align: center; justify-content: center; align-items: center; align-self: center;"">{{'%0.8f'|format(item.x|float)}}
                 </td>
                 <td style=" text-align: center; justify-content: center;">{{'%0.8f'|format(item.y|float)}}
-                </td>
-                <td style="text-align: center; justify-content: center;">{{item.date[-5:]}}</td>           
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
+              </td>
+              <td style="text-align: center; justify-content: center;">{{item.date[-5:]}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
       </div>
-      
     </div>
 
-
-    <script type="text/javascript">
-// This example creates a 2-pixel-wide red polyline showing the path of
-// the first trans-Pacific flight between Oakland, CA, and Brisbane,
-// Australia which was made by Charles Kingsford Smith.
-function initMap() {
-  const map = new google.maps.Map(document.getElementById("map"), {
-    zoom: 8,
-    center: { lat: 59.42190595212989, lng: 17.822133881640568 },
-    mapTypeId: "terrain",
-  });
+  </div>
 
 
-
-  var flightPlanCoordinates = [];
-
-  {% for item in car.features %}
-
-
-flightPlanCoordinates.push(
-  { 'lat': {{ item.x }} , 'lng': {{ item.y }}}
-)
-{% endfor  %}
-alert(flightPlanCoordinates.length);
-
-  const flightPath = new google.maps.Polyline({
-    path: flightPlanCoordinates,
-    geodesic: true,
-    strokeColor: "#FF0000",
-    strokeOpacity: 1.0,
-    strokeWeight: 2,
-  });
-
-  flightPath.setMap(map);
-}  
-    </script>
-
-    
-
-    <script>
-      /*for(let i =0;i<data['cars'].length;i++){
-                // console.log(['cars'][i])
-                id=data['cars'][i]['id']
-                console.log(id)
-                for(let j=0;j<data['cars'][i]['features'].length;j++){
-                  console.log(data['cars'][i]['features'][j])
-                  id=data['cars'][i]['id']
-                }            }*/
-    </script>
-  
   <script type="text/javascript">
-  /*function yukle(){
-    var body = document.body,
-    html = document.documentElement;
+    // This example creates a 2-pixel-wide red polyline showing the path of
+    // the first trans-Pacific flight between Oakland, CA, and Brisbane,
+    // Australia which was made by Charles Kingsford Smith.
+    function initMap() {
+      const map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 8,
+        center: { lat: 59.42190595212989, lng: 17.822133881640568 },
+        mapTypeId: "terrain",
+      });
 
-    var height = Math.max( body.scrollHeight, body.offsetHeight, 
-    html.clientHeight, html.scrollHeight, html.offsetHeight );
 
-    var hepsi=$('#æ').outerHeight(true);  
 
-    var satir1=$('#r1').outerHeight(true);  
-    var satir2=$('#r2').outerHeight(true);  
-    //var satir3=$('r3').outerHeight(true);  
-    var mapyuk=hepsi-satir1-satir2;
-    alert("container : "+hepsi);
-    alert("satir 1 : "+satir1);
-    alert("satir 2 : "+satir2);
-    alert("map yukseklık : "+mapyuk);
-    document.getElementById("#r3").style.height = mapyuk.toString()+" px";
-   
+      var flightPlanCoordinates = [];
 
-    console.log("ANEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEMMMMM KURTAR BENI BY GOKSEL 1221");
+      {% for item in car.features %}
 
-    //window.onload=yukle();
 
-  }*/
-</script>
+      flightPlanCoordinates.push(
+        { 'lat': {{ item.x }} , 'lng': {{ item.y }} }
+)
+    {% endfor %}
+
     
+    const flightPath = new google.maps.Polyline({
+      path: flightPlanCoordinates,
+      geodesic: true,
+      strokeColor: "#FF0000",
+      strokeOpacity: 1.0,
+      strokeWeight: 2,
+    });
+
+    flightPath.setMap(map);
+}  
+  </script>
+
+
+
+
 </body>
+
 </html>

@@ -160,8 +160,8 @@ def is_avaiable_login(username,password):
         id= get_username_id(username)
         
         
-        if updateFailedCount(id) >=3:
-            flash("Kardesim manyak mısın yanlış girme artık ban yicen.")
+        if int(updateFailedCount(id)) >=3:
+            flash("3 kereden fazla hatalı giriş yaptınız. lütfen biraz daha dikkatli olalım.")
     
         return False
 

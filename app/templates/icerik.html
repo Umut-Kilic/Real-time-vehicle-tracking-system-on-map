@@ -13,11 +13,20 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@1,200&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
   </style>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
+</style>
+
+
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Tourney:wght@600&display=swap');
   </style>
+
+
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
@@ -25,11 +34,23 @@
     * {
       box-sizing: border-box;
       margin: 0px;
+     
     }
 
     body {
-      background-color: salmon;
+      background-color: rgb(20, 20, 68);
     }
+    h1,h2,h3,h4,h5,h6,a{
+      font-family: 'Tourney', cursive;
+    }
+    td,td>a,th{
+      font-family: 'Patrick Hand', cursive;
+
+    }
+    h1{
+      font-size: 45px;
+    }
+    
 
     #link {
       text-decoration: none;
@@ -42,7 +63,7 @@
       text-decoration: underline;
       color: blue;
       font-weight: bolder;
-      font-size: 20px;
+      font-size: 25px;
     }
 
     #link:visited {
@@ -53,12 +74,25 @@
       text-decoration: dotted;
       color: red;
       font-weight: bolder;
+      font-size: 25px;
+    }
+    td{
+      font-size: 20px;
+    }
+    tr{
+      font-size: 25px;
+    }
+
+    td>a {
+      color: white;
+      text-decoration: none;
       font-size: 20px;
     }
 
-    a {
-      color: white;
+    td>a:hover {
+      color: red;
       text-decoration: none;
+      font-size: 40px;
     }
 
     a:active,
@@ -71,6 +105,8 @@
       color: red;
       font-weight: bolder;
     }
+
+    
   </style>
 
   <script type="text/javascript">
@@ -227,7 +263,7 @@
         }
       });
     }
-    
+
 
     var generate_of_table_counter_by_1221 = 0;
     function loadNewDecimal() {
@@ -308,10 +344,10 @@
 
 <body>
 
-  <div class="container-fluid bg-warning" style="padding: 0px;">
+  <div class="container-fluid " style="padding: 0px;">
     <div class="row w-100 m-0 bg-info " style=" padding: 0px;">
       <div class="col-md-10 col-sm-9 col-9 mt-sm-1" style="height: 65px; padding: 0px; ">
-        <h1 class="pt-1 mb-0 text-center" style="height: 100%; font-family: 'Pacifico', cursive;">HOŞ GELDİN : {{isim}}
+        <h1 class="pt-1 mb-0 text-center" style="height: 100%; ">HOS GELDIN : {{isim}}
         </h1>
 
       </div>
@@ -321,10 +357,10 @@
       </div>
     </div>
 
-    <div class="row w-100 m-0 bg-warning" style="padding: 0px;">
+    <div class="row w-100 m-0 " style="padding: 0px;">
       <div id="map" class="col-md-9 p-0" style="height:670px;">
       </div>
-      <div class="col-md-3 p-0" style="height: auto">
+      <div class="col-md-3 p-0 koyuMavi" style="height: auto">
         <table style="padding: 0px;" class="table table-dark table-hover table-striped table-responsive w-100 p-0 m-0">
           <thead>
             <tr>
@@ -347,7 +383,7 @@
               </td>
               <td style="text-align: center; justify-content: center;"><a href="#row2"><img class="w-100"
                     src="{{ url_for('static', filename='images/search.png') }} "
-                    alt="Goksel istiyor yapacak bir şey yok"></a></td>
+                    alt="Uzgunuz resim yuklenemedi"></a></td>
             </tr>
             {% endfor %}
 
@@ -359,34 +395,11 @@
     </div>
 
 
-    <div class="row bg-success w-100 mt-sm-2 mt-2" style="min-height: 500px; margin: 0px; padding: 0px;" id="row2">
-      <div class="col-md-12" style="padding: 0px;">
-
-        <table style="padding: 0px;" class="table table-dark table-hover table-striped table-responsive w-100 p-0 m-0">
-          <thead>
-
-          </thead>
-          <tbody>
-
-            {% for car in cars %}
-
-            {% for item in car.features %}
-
-            {% endfor %}
-            {% endfor %}
-          </tbody>
-
-        </table>
-
-      </div>
-
-
-    </div>
-    <div class="row mt-sm-2 mt-2">
+    <div class="row mt-sm-2 mt-2" >
       <div class="col-md-12 col-sm-12 col-12   ">
         <table id="tblData" class="table table-dark table-hover table-striped table-responsive w-100 p-0 m-0">
           <thead>
-            <tr>
+            <tr  id="row2">
               <th style="text-align: center; justify-content: center;">Araç Id</th>
               <th style="text-align: center; justify-content: center;">Araç Konum X</th>
               <th style="text-align: center; justify-content: center;">Araç Konum Y</th>
@@ -400,6 +413,7 @@
       </div>
     </div>
   </div>
+  
 
 
 </body>
