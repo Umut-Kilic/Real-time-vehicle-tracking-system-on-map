@@ -203,28 +203,22 @@
         var y1 = y;
         var date1 = date;
         var sayac1 = sayac;
-        var clas = $("#tblData tbody tr").attr('class');
-        //var idd=$("#tblData tbody tr").attr('id');
-        // console.log("Class : "+clas+"   id : "+idd);
-        console.log("Class : " + id1 + "   id : " + sayac);
+       
+
+      
+        
         if (id != "" && x != "" && y != "" && date != "") {
 
-          if (clas == id1) {
-            $("#" + sayac + " > td").each(function (i, element) {
+            console.log("Class : " + id1 + "   id : " + sayac);
 
-              var el = $(element);
-              console.log("1 "+ el.parent().siblings(':eq(0)').html());
-              console.log("2"+el.parent().siblings(':eq(1)').html());
-              console.log("3 "+el.parent().siblings(':eq(2)').html());
-              console.log("4 "+el.parent().siblings(':eq(3)').html());
+            var dizi=[id1,x1,y1,date1]
 
+            var currentrow = $("#" + sayac +"");
+
+            $(currentrow).find('td').each(function (index, element) {
+              $(element).text(dizi[index]);
             });
-
-            $("#tblData tbody > tr #" + sayac + "").children(0).text(id1);
-            $("#tblData tbody > tr #" + sayac + "").children(1).text(x1);
-            $("#tblData tbody > tr #" + sayac + "").children(2).text(y1);
-            $("#tblData tbody > tr #" + sayac + "").children(3).text(date1);
-          }
+         
         }
         else {
           var bosSatir = "<tr><td colspan='4' class='text-center'> Boş Veri</td></tr>";
@@ -233,6 +227,7 @@
         }
       });
     }
+    
 
     var generate_of_table_counter_by_1221 = 0;
     function loadNewDecimal() {
