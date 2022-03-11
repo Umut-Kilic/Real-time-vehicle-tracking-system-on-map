@@ -176,6 +176,16 @@
       flightPlanCoordinates = []
     }
 
+    
+    function deleteAllTabllo(){
+    $("#tblData tbody").html("");
+    $("#tblData tbody").children().remove();
+  }
+
+    function generate30TableRow(){
+      var satir = "<tr><td style='text-align: center; justify-content: center;'>" + id1 + "</td><td style='text-align: center; justify-content: center;'>" + x1.substring(0, 10) + "</td><td style='text-align: center; justify-content: center;'>" + y1.substring(0, 10) + "</td><td style='text-align: center; justify-content: center;'>" + date1 + "</td></tr>";
+      $("#tblData tbody").append(satir);
+    }
     function dinamikVeri(id, x, y, date) {
 
       $(document).ready(function () {
@@ -188,11 +198,8 @@
         if (id != "" && x != "" && y != "" && date != "") {
 
 
-          if ($("#tblData tbody").children().length >= 63) {
-            $("#tblData tbody").html("");
-            $("#tblData tbody").children().remove();
-          }
-
+      
+      
           var satir = "<tr><td style='text-align: center; justify-content: center;'>" + id1 + "</td><td style='text-align: center; justify-content: center;'>" + x1.substring(0, 10) + "</td><td style='text-align: center; justify-content: center;'>" + y1.substring(0, 10) + "</td><td style='text-align: center; justify-content: center;'>" + date1 + "</td></tr>";
 
           $("#tblData tbody").append(satir);
@@ -212,6 +219,7 @@
         type: 'GET',
 
         success: function (data) {
+          deleteAllTabllo();
           renksayaci = 0;
           deleteRoad();
 
@@ -329,26 +337,14 @@
 
         <table style="padding: 0px;" class="table table-dark table-hover table-striped table-responsive w-100 p-0 m-0">
           <thead>
-            <tr>
-              <th style="text-align: center; justify-content: center;">Araç Id</th>
-              <th style="text-align: center; justify-content: center;">Araç Konum X</th>
-              <th style="text-align: center; justify-content: center;">Araç Konum Y</th>
-              <th style="text-align: center; justify-content: center;">Saat</th>
-            </tr>
-
+    
           </thead>
           <tbody>
 
             {% for car in cars %}
 
             {% for item in car.features %}
-            <tr>
-              <td style="text-align: center; justify-content: center;"> <a href={{ url_for('saatsecimi',car_id=car.id ,
-                  saat="1" ) }} }}>{{car.id}}</a></td>
-              <td style="text-align: center; justify-content: center;">{{'%0.8f'|format(item.x|float)}} </td>
-              <td style="text-align: center; justify-content: center;">{{'%0.8f'|format(item.y|float)}}</td>
-              <td style="text-align: center; justify-content: center;">{{'%0.2f'|format(item.date|float)}}</td>
-            </tr>
+        
             {% endfor %}
             {% endfor %}
           </tbody>
