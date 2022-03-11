@@ -176,17 +176,25 @@
       flightPlanCoordinates = []
     }
 
-    
-    function deleteAllTabllo(){
-    $("#tblData tbody").html("");
-    $("#tblData tbody").children().remove();
-  }
 
-    function generate30TableRow(){
-      var satir = "<tr><td style='text-align: center; justify-content: center;'>" + id1 + "</td><td style='text-align: center; justify-content: center;'>" + x1.substring(0, 10) + "</td><td style='text-align: center; justify-content: center;'>" + y1.substring(0, 10) + "</td><td style='text-align: center; justify-content: center;'>" + date1 + "</td></tr>";
-      $("#tblData tbody").append(satir);
+    function deleteAllTabllo() {
+      $("#tblData tbody").html("");
+      $("#tblData tbody").children().remove();
     }
-    function dinamikVeri(id, x, y, date) {
+    var k = 1;
+    function generate30TableRow(id) {
+      while (true) {
+        var satir = "<tr class='" + id + "' id='" + k + "'><td style='text-align: center; justify-content: center;'></td><td style='text-align: center; justify-content: center;'></td><td style='text-align: center; justify-content: center;'></td><td style='text-align: center; justify-content: center;'></td></tr>";
+        $("#tblData tbody").append(satir);
+        if (k % 30 == 0) {
+          k++;
+          break;
+        }
+        k++;
+      }
+
+    }
+    function dinamikVeri(id, x, y, date, sayac) {
 
       $(document).ready(function () {
 
@@ -194,15 +202,29 @@
         var x1 = x;
         var y1 = y;
         var date1 = date;
-
+        var sayac1 = sayac;
+        var clas = $("#tblData tbody tr").attr('class');
+        //var idd=$("#tblData tbody tr").attr('id');
+        // console.log("Class : "+clas+"   id : "+idd);
+        console.log("Class : " + id1 + "   id : " + sayac);
         if (id != "" && x != "" && y != "" && date != "") {
 
+          if (clas == id1) {
+            $("#" + sayac + " > td").each(function (i, element) {
 
-      
-      
-          var satir = "<tr><td style='text-align: center; justify-content: center;'>" + id1 + "</td><td style='text-align: center; justify-content: center;'>" + x1.substring(0, 10) + "</td><td style='text-align: center; justify-content: center;'>" + y1.substring(0, 10) + "</td><td style='text-align: center; justify-content: center;'>" + date1 + "</td></tr>";
+              var el = $(element);
+              console.log("1 "+ el.parent().siblings(':eq(0)').html());
+              console.log("2"+el.parent().siblings(':eq(1)').html());
+              console.log("3 "+el.parent().siblings(':eq(2)').html());
+              console.log("4 "+el.parent().siblings(':eq(3)').html());
 
-          $("#tblData tbody").append(satir);
+            });
+
+            $("#tblData tbody > tr #" + sayac + "").children(0).text(id1);
+            $("#tblData tbody > tr #" + sayac + "").children(1).text(x1);
+            $("#tblData tbody > tr #" + sayac + "").children(2).text(y1);
+            $("#tblData tbody > tr #" + sayac + "").children(3).text(date1);
+          }
         }
         else {
           var bosSatir = "<tr><td colspan='4' class='text-center'> Boş Veri</td></tr>";
@@ -212,16 +234,18 @@
       });
     }
 
-
+    var generate_of_table_counter_by_1221 = 0;
     function loadNewDecimal() {
       $.ajax({
         url: '/30_dakkalik_arabalar',
         type: 'GET',
 
+
         success: function (data) {
-          deleteAllTabllo();
+          //deleteAllTabllo();
           renksayaci = 0;
           deleteRoad();
+          var sayac = 0;
 
           for (let i = 0; i < data['cars'].length; i++) {
 
@@ -229,6 +253,9 @@
 
             flightPlanCoordinates = []
             id = data['cars'][i]['id']
+            if (generate_of_table_counter_by_1221 == 0) {
+              generate30TableRow(id)
+            }
             // console.log(id)
             for (let j = 0; j < data['cars'][i]['features'].length; j++) {
               var arac = {
@@ -240,9 +267,11 @@
                 }]
               }
               if (arac != null) {
+                sayac++;
                 addMarker(data['cars'][i]['id'].toString(), parseFloat(data['cars'][i]['features'][j]['x']), parseFloat(data['cars'][i]['features'][j]['y']), data['cars'][i]['features'][j]['date'].split(' ').reverse()[0])
-                dinamikVeri(data['cars'][i]['id'].toString(), data['cars'][i]['features'][j]['x'].toString(), data['cars'][i]['features'][j]['y'].toString(), data['cars'][i]['features'][j]['date'].split(' ').reverse()[0].toString());
+                dinamikVeri(data['cars'][i]['id'].toString(), data['cars'][i]['features'][j]['x'].toString(), data['cars'][i]['features'][j]['y'].toString(), data['cars'][i]['features'][j]['date'].split(' ').reverse()[0].toString(), sayac);
                 araclar.push(arac)
+
               }
               setMapOnAll(map);
 
@@ -250,6 +279,8 @@
             drawRoad(markers);
 
           }
+
+          generate_of_table_counter_by_1221++;
 
 
 
@@ -332,19 +363,20 @@
       </div>
     </div>
 
+
     <div class="row bg-success w-100 mt-sm-2 mt-2" style="min-height: 500px; margin: 0px; padding: 0px;" id="row2">
       <div class="col-md-12" style="padding: 0px;">
 
         <table style="padding: 0px;" class="table table-dark table-hover table-striped table-responsive w-100 p-0 m-0">
           <thead>
-    
+
           </thead>
           <tbody>
 
             {% for car in cars %}
 
             {% for item in car.features %}
-        
+
             {% endfor %}
             {% endfor %}
           </tbody>
