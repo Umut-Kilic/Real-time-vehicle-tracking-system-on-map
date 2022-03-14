@@ -11,24 +11,14 @@ kimlik= credentials.Certificate('./key.json')
 app=firebase_admin.initialize_app(kimlik)
 db=firestore.client()
 
-
 id =10
-
 car =data
-
-print(data['carid'][2000])
-
-for i in range(len(data)):
-        if data['carid'][i] == 37:
-            
-            
+for i in range(len(data)):  
+        print(str(type(data['carid'][i])) +"+tipini s0everim . " +str(data['carid'][i]))
+        if int(data['carid'][i]) == int(27):
             document=db.collection("ALLCARS").document(str(data['carid'][i]))
             document.update({
-
             data['date'][i]:
-                
                 {"x": data['x'][i],
                 "y": data['y'][i],   
-                
                 }})
-

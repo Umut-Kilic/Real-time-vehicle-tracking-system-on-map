@@ -6,7 +6,6 @@ __pycache__/
 *.pyo
 .env       <-- add this line
 
-*.csv
 
 # C extensions
 *.so
