@@ -8,7 +8,7 @@ import pandas as pd
 import sqlite3
 import pprint
 col_Names=["date", "x", "y", "carid"]
-data= pd.read_csv("4araba.csv",names=col_Names)
+data= pd.read_csv("umut.csv",names=col_Names)
 
 
 conn=sqlite3.connect('views/musteri_hesap_bilgileri.db', check_same_thread=False)
@@ -43,7 +43,7 @@ def otuzyolla(index,car,id):
         channel.exchange_declare(exchange='logs', exchange_type='fanout')
         message=  "id=" + str(id) + "  x : " + str(x) +"  y : " + str(y) + " date:" + str(date)
         channel.basic_publish(exchange='logs', routing_key='123', body=message)
-        #print(" [x] Sent %r" % message)
+        print(" [x] Sent %r" % message)
         connection.close()
      
       
