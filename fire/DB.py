@@ -4,7 +4,7 @@ import firebase_admin
 from firebase_admin import credentials ,firestore
 
 col_Names=["date", "x", "y", "carid"]
-data= pd.read_csv("4araba.csv",names=col_Names)
+data= pd.read_csv("umut.csv",names=col_Names)
 
 
 kimlik= credentials.Certificate('./key.json')
